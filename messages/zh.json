@@ -1,0 +1,364 @@
+{
+  "common": {
+    "companyName": "品仕高",
+    "companyNameEn": "PINSHIGAO",
+    "companyFull": "品仕高五金有限公司",
+    "companyFullEn": "PINSHIGAO Hardware Co., Ltd.",
+    "slogan": "精工品质 · 触心而动",
+    "sloganEn": "Precision Engineering, Inspired Living",
+    "tagline": "精密五金 · 触心而动",
+    "taglineEn": "Precision Hardware · Inspired Motion",
+    "phone": "+86 400-888-9999",
+    "email": "info@pinshigao.com",
+    "address": "中国 · 广东 佛山",
+    "addressFull": "广东省佛山市顺德区勒流街道",
+    "copyright": "© 2024 品仕高五金有限公司 版权所有",
+    "allRights": "All Rights Reserved.",
+    "explore": "探索产品",
+    "learnMore": "了解更多",
+    "viewDetails": "查看详情",
+    "viewAll": "查看全部",
+    "readMore": "阅读更多",
+    "contactNow": "立即咨询",
+    "download": "下载",
+    "submit": "提交",
+    "send": "发送",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "back": "返回",
+    "search": "搜索",
+    "noResults": "暂无结果",
+    "loading": "加载中...",
+    "error": "出错了",
+    "success": "操作成功",
+    "home": "首页",
+    "products": "产品中心",
+    "about": "关于我们",
+    "news": "新闻动态",
+    "contact": "联系我们",
+    "solutions": "应用方案",
+    "support": "服务支持",
+    "privacy": "隐私政策",
+    "terms": "使用条款"
+  },
+  "nav": {
+    "home": "首页",
+    "products": "产品中心",
+    "solutions": "应用方案",
+    "support": "服务支持",
+    "about": "关于我们",
+    "news": "新闻动态",
+    "contact": "联系我们",
+    "catalog": "获取产品手册"
+  },
+  "hero": {
+    "slide1Title": "精工品质 · 触心而动",
+    "slide1Desc": "专注高端家具五金解决方案，以德国品质标准、意大利设计美学，为您打造极致顺滑的开合体验。",
+    "slide2Title": "全系列家具五金",
+    "slide2Desc": "铰链、抽屉系统、上翻门系统——每个产品都经过严苛的质量测试，确保20万次以上的顺畅开合。",
+    "slide3Title": "创新驱动品质",
+    "slide3Desc": "20年行业深耕，服务全球超2000家家具制造企业，以技术创新引领行业标准。"
+  },
+  "brand": {
+    "since": "Since 2004",
+    "title": "精密五金 · 触心而动",
+    "subtitle": "— moving ideas. moving quality. —",
+    "desc": "品仕高五金致力于为全球家具制造商提供高品质五金解决方案。我们深度融合德国精密制造技术与意大利设计美学，将每一个开启与闭合的瞬间，都变成享受。"
+  },
+  "products": {
+    "title": "发现我们的产品系列",
+    "subtitle": "Discover Our Product Range",
+    "viewAll": "查看全部产品",
+    "categories": {
+      "hinges": {
+        "name": "铰链系统",
+        "series": "8 个系列 · 32 种规格",
+        "desc": "从标准铰链到免工具快装系统，覆盖全屋家具应用场景，10万次开合质量保证。"
+      },
+      "drawers": {
+        "name": "抽屉系统",
+        "series": "5 个系列 · 全伸展导轨",
+        "desc": "静音阻尼抽屉系统，承重30-80kg，顺畅如丝，为高端厨房和衣柜提供完美收纳方案。"
+      },
+      "lifts": {
+        "name": "上翻门系统",
+        "series": "3 个系列 · 轻触即开",
+        "desc": "电动与手动上翻门系统，搭载伺服驱动技术，任意位置随意停止，重新定义吊柜使用体验。"
+      },
+      "slides": {
+        "name": "滑轨系统",
+        "series": "4 个系列 · 隐藏式设计",
+        "desc": "钢珠滑轨与隐藏式托底轨，承重从15kg到80kg，三节全伸展设计，满足不同家具需求。"
+      },
+      "handles": {
+        "name": "拉手系列",
+        "series": "6 个系列 · 50+ 款式",
+        "desc": "从极简到奢华，铝、不锈钢、黄铜多材质选择，为每一件家具点睛。"
+      }
+    },
+    "featured": {
+      "title": "精选推荐",
+      "subtitle": "技术创新 · 定义品质",
+      "hinge": {
+        "name": "PSG-Pro 系列阻尼铰链",
+        "desc": "内置集成阻尼器，45mm短臂设计，兼容多种柜体厚度。三维调节能力±3mm，安装便捷。通过20万次开合测试，品质经得起时间考验。",
+        "load": "承重：35kg",
+        "cycles": "开合：20万次",
+        "adjust": "调节：±3mm"
+      },
+      "drawer": {
+        "name": "PSG-Sleek 静音抽屉系统",
+        "desc": "全隐藏式导轨设计，集成阻尼缓冲与自动闭合功能。侧板极薄仅12mm，最大化内部储物空间。承重50kg，推拉顺滑无声。",
+        "load": "承重：50kg",
+        "cycles": "开合：20万次",
+        "profile": "侧板：12mm"
+      }
+    },
+    "detail": {
+      "specs": "产品规格",
+      "features": "产品特点",
+      "downloads": "资料下载",
+      "related": "相关产品"
+    }
+  },
+  "cases": {
+    "title": "应用案例",
+    "subtitle": "从高端定制厨房到现代办公空间，品仕高五金与全球客户共创美好空间",
+    "kitchen": {
+      "tag": "厨房解决方案",
+      "title": "高端定制厨房 · 杭州绿城",
+      "desc": "采用全系列 PSG-Pro 阻尼铰链与 PSG-Sleek 抽屉系统"
+    },
+    "wardrobe": {
+      "tag": "衣柜解决方案",
+      "title": "步入式衣帽间 · 深圳湾1号",
+      "desc": "隐藏式滑轨与内嵌拉手系统"
+    },
+    "office": {
+      "tag": "办公解决方案",
+      "title": "现代办公空间 · 上海中心",
+      "desc": "办公家具专用五金系统"
+    }
+  },
+  "quick": {
+    "title": "一站式服务支持",
+    "catalog": {
+      "title": "产品手册",
+      "desc": "下载完整产品目录，浏览全系列产品详细信息与技术参数。"
+    },
+    "resources": {
+      "title": "资料下载",
+      "desc": "获取安装指南、3D模型、CAD图纸和技术文件。"
+    },
+    "tech": {
+      "title": "技术服务",
+      "desc": "专业工程师团队提供产品选型、安装指导与售后支持。"
+    },
+    "shop": {
+      "title": "在线商店",
+      "desc": "便捷在线下单，实时库存查询，快速物流配送。"
+    }
+  },
+  "news": {
+    "title": "最新资讯",
+    "item1": {
+      "title": "品仕高亮相2024中国国际家具展",
+      "desc": "全新PSG-Pro系列产品首次公开亮相，获行业专家高度评价。",
+      "date": "2024.12.15"
+    },
+    "item2": {
+      "title": "全新伺服驱动上翻门系统发布",
+      "desc": "触控开启，智能停止，为智能家居提供完美五金解决方案。",
+      "date": "2024.11.08"
+    },
+    "item3": {
+      "title": "佛山智能制造基地二期投产",
+      "desc": "年产能提升至5000万件，引入全自动装配线，品质再升级。",
+      "date": "2024.10.20"
+    }
+  },
+  "cta": {
+    "title": "与品仕高携手，共创品质空间",
+    "desc": "联系我们获取专业产品选型建议与样品支持"
+  },
+  "footer": {
+    "about": "品仕高五金成立于2004年，专业从事家具五金研发、制造与销售。产品远销全球50多个国家和地区，服务超过2000家家具制造企业。",
+    "products": "产品中心",
+    "support": "服务支持",
+    "aboutUs": "关于我们",
+    "contactUs": "联系我们",
+    "downloadCenter": "下载中心",
+    "installGuide": "安装指南",
+    "techData": "技术参数",
+    "faq": "FAQ",
+    "warranty": "售后保修",
+    "companyProfile": "公司简介",
+    "history": "发展历程",
+    "manufacturing": "生产基地",
+    "certifications": "资质认证",
+    "careers": "加入我们",
+    "hours": "周一至周五 8:30-17:30"
+  },
+  "admin": {
+    "login": "管理员登录",
+    "username": "用户名",
+    "password": "密码",
+    "loginBtn": "登录",
+    "dashboard": "管理后台",
+    "welcome": "欢迎回来",
+    "manageProducts": "产品管理",
+    "manageCategories": "分类管理",
+    "manageNews": "新闻管理",
+    "managePages": "页面管理",
+    "manageSettings": "网站设置",
+    "manageMedia": "媒体库",
+    "logout": "退出登录",
+    "addNew": "新增",
+    "editProduct": "编辑产品",
+    "editCategory": "编辑分类",
+    "editNews": "编辑新闻",
+    "editPage": "编辑页面",
+    "productName": "产品名称",
+    "categoryName": "分类名称",
+    "newsTitle": "新闻标题",
+    "pageTitle": "页面标题",
+    "content": "内容",
+    "image": "图片",
+    "slug": "URL标识",
+    "order": "排序",
+    "status": "状态",
+    "published": "已发布",
+    "draft": "草稿",
+    "actions": "操作",
+    "confirmDelete": "确定要删除吗？",
+    "siteTitle": "网站标题",
+    "siteDescription": "网站描述",
+    "contactEmail": "联系邮箱",
+    "contactPhone": "联系电话",
+    "address": "公司地址",
+    "statsProducts": "产品总数",
+    "statsNews": "新闻数量",
+    "statsOrders": "订单数量",
+    "statsInquiries": "咨询数量",
+    "welcomeMessage": "欢迎回来，以下是网站概况。",
+    "quickActions": "快捷操作",
+    "addProduct": "添加产品",
+    "addNews": "添加新闻",
+    "manageMedia": "管理媒体",
+    "managePages": "管理页面",
+    "siteSettings": "网站设置",
+    "viewSite": "查看网站",
+    "recentActivity": "最近活动",
+    "noActivity": "暂无最近活动。",
+    "activityUpdated": "更新了",
+    "activityCreated": "创建了",
+    "activityUploaded": "上传了",
+    "activityPublished": "发布了",
+    "activityDeleted": "删除了",
+    "minutesAgo": "5分钟前",
+    "hourAgo": "1小时前",
+    "hoursAgo": "3小时前",
+    "yesterday": "昨天",
+    "daysAgo": "2天前",
+    "statsProductLabel": "产品",
+    "statsNewsLabel": "新闻",
+    "statsOrderLabel": "订单",
+    "statsInquiryLabel": "咨询",
+    "addCategory": "添加分类",
+    "categories": "分类管理",
+    "categoriesDesc": "管理产品分类",
+    "cancel": "取消",
+    "create": "创建",
+    "update": "更新",
+    "saving": "保存中...",
+    "deleting": "删除中...",
+    "deleteCategoryWarning": "删除后不可恢复，请确认该分类下没有产品。",
+    "displayOrder": "排序",
+    "editCategory": "编辑分类",
+    "noCategories": "暂无分类",
+    "noPages": "暂无页面",
+    "noSearchResults": "未找到匹配结果",
+    "search": "搜索",
+    "searchCategories": "搜索分类名称...",
+    "loading": "加载中...",
+    "imageUrl": "图片地址",
+    "imageUrlPlaceholder": "输入图片URL或上传图片",
+    "slug": "URL标识",
+    "slugHint": "用于URL的唯一标识，如：hinge-series",
+    "slugPlaceholder": "输入URL标识",
+    "nameZh": "中文名称",
+    "nameZhPlaceholder": "输入中文名称",
+    "nameEn": "英文名称",
+    "nameEnPlaceholder": "输入英文名称",
+    "nameDe": "德文名称",
+    "nameDePlaceholder": "输入德文名称",
+    "products": "产品",
+    "published": "已发布",
+    "managePagesDesc": "管理静态页面内容"
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "专业团队为您服务",
+    "form": {
+      "name": "您的姓名",
+      "email": "邮箱地址",
+      "phone": "联系电话",
+      "message": "留言内容",
+      "submit": "发送消息",
+      "success": "消息已发送，我们会尽快与您联系！"
+    },
+    "info": {
+      "address": "公司地址",
+      "phone": "联系电话",
+      "email": "电子邮箱",
+      "hours": "工作时间"
+    }
+  },
+  "about": {
+    "title": "关于品仕高",
+    "subtitle": "精工品质 · 触心而动",
+    "intro": "品仕高五金有限公司成立于2004年，总部位于中国五金之都——广东佛山。公司专业从事家具五金配件的研发、制造与销售，产品涵盖铰链、抽屉系统、上翻门系统、滑轨系统、拉手等全系列家具五金。",
+    "mission": "致力于为全球家具制造商提供高品质、高精度、高可靠性的五金解决方案，以技术创新驱动行业发展。",
+    "values": "品质 · 创新 · 服务",
+    "history": "发展历程",
+    "milestones": [
+      {"year": "2004", "event": "公司成立于广东佛山"},
+      {"year": "2008", "event": "通过ISO9001质量管理体系认证"},
+      {"year": "2012", "event": "建立首个自动化生产线"},
+      {"year": "2016", "event": "产品出口至全球30个国家"},
+      {"year": "2020", "event": "佛山智能制造基地一期投产"},
+      {"year": "2024", "event": "全球客户超2000家，年产能突破5000万件"}
+    ],
+    "stats": [
+      {"value": "2000+", "label": "全球客户"},
+      {"value": "50+", "label": "出口国家"},
+      {"value": "5000万", "label": "年产能(件)"},
+      {"value": "20年", "label": "行业经验"}
+    ]
+  },
+  "solutionsPage": {
+    "hero": {
+      "title": "应用解决方案",
+      "subtitle": "从厨房到衣柜再到办公空间，为每个空间提供全面的五金解决方案"
+    },
+    "kitchen": {
+      "title": "厨房解决方案",
+      "desc": "完整的厨房五金系统，包括高品质铰链、抽屉滑轨和上翻门系统。我们的厨房解决方案为现代烹饪空间提供静音阻尼、顺滑运动和持久耐用性。"
+    },
+    "wardrobe": {
+      "title": "衣柜解决方案",
+      "desc": "集成的衣柜五金系统，结合顺畅移门、隐藏式抽屉滑轨和人体工学拉手设计。以精密五金打造井然有序、优雅大气的储物空间。"
+    },
+    "office": {
+      "title": "办公解决方案",
+      "desc": "专业办公家具五金，包括重型滑轨、锁系统和线缆管理方案。以可靠性为核心，专为日常商业使用而设计。"
+    },
+    "cta": {
+      "title": "需要定制解决方案？",
+      "desc": "我们的工程团队与家具制造商紧密合作，为您特定的应用需求开发量身定制的五金解决方案。",
+      "button": "联系我们"
+    }
+  }
+}

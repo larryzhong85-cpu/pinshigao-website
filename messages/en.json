@@ -1,0 +1,364 @@
+{
+  "common": {
+    "companyName": "PINSHIGAO",
+    "companyNameEn": "PINSHIGAO",
+    "companyFull": "PINSHIGAO Hardware Co., Ltd.",
+    "companyFullEn": "PINSHIGAO Hardware Co., Ltd.",
+    "slogan": "Precision Engineering, Inspired Living",
+    "sloganEn": "Precision Engineering, Inspired Living",
+    "tagline": "Precision Hardware · Inspired Motion",
+    "taglineEn": "Precision Hardware · Inspired Motion",
+    "phone": "+86 400-888-9999",
+    "email": "info@pinshigao.com",
+    "address": "Foshan, Guangdong, China",
+    "addressFull": "Leliu Street, Shunde District, Foshan City, Guangdong Province, China",
+    "copyright": "© 2024 PINSHIGAO Hardware Co., Ltd.",
+    "allRights": "All Rights Reserved.",
+    "explore": "Explore Products",
+    "learnMore": "Learn More",
+    "viewDetails": "View Details",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "contactNow": "Contact Now",
+    "download": "Download",
+    "submit": "Submit",
+    "send": "Send",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "search": "Search",
+    "noResults": "No Results",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "home": "Home",
+    "products": "Products",
+    "about": "About Us",
+    "news": "News",
+    "contact": "Contact",
+    "solutions": "Solutions",
+    "support": "Support",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "solutions": "Solutions",
+    "support": "Support",
+    "about": "About Us",
+    "news": "News",
+    "contact": "Contact",
+    "catalog": "Download Catalog"
+  },
+  "hero": {
+    "slide1Title": "Precision Engineering, Inspired Living",
+    "slide1Desc": "Specializing in premium furniture hardware solutions — blending German precision with Italian design for an unparalleled smooth motion experience.",
+    "slide2Title": "Complete Hardware Portfolio",
+    "slide2Desc": "Hinges, drawer systems, lift systems — every product undergoes rigorous quality testing for 200,000+ smooth cycles.",
+    "slide3Title": "Driven by Innovation",
+    "slide3Desc": "20 years of industry expertise, serving over 2,000 furniture manufacturers worldwide, setting industry standards through innovation."
+  },
+  "brand": {
+    "since": "Since 2004",
+    "title": "Precision Hardware · Inspired Motion",
+    "subtitle": "— moving ideas. moving quality. —",
+    "desc": "PINSHIGAO Hardware is dedicated to providing high-quality hardware solutions for furniture manufacturers worldwide. We blend German precision engineering with Italian design aesthetics, transforming every open and close into a pleasure."
+  },
+  "products": {
+    "title": "Discover Our Product Range",
+    "subtitle": "Discover Our Product Range",
+    "viewAll": "View All Products",
+    "categories": {
+      "hinges": {
+        "name": "Hinge Systems",
+        "series": "8 Series · 32 Specs",
+        "desc": "From standard hinges to tool-free quick-fit systems covering all furniture applications with 100,000-cycle quality assurance."
+      },
+      "drawers": {
+        "name": "Drawer Systems",
+        "series": "5 Series · Full Extension",
+        "desc": "Silent damping drawer systems, 30-80kg load capacity, butter-smooth motion for premium kitchen and wardrobe storage."
+      },
+      "lifts": {
+        "name": "Lift Systems",
+        "series": "3 Series · Touch-Open",
+        "desc": "Electric and manual lift systems with servo-drive technology, stop at any position — redefining wall cabinet experience."
+      },
+      "slides": {
+        "name": "Sliding Systems",
+        "series": "4 Series · Concealed Design",
+        "desc": "Ball-bearing slides and concealed under-mount rails, 15-80kg load, 3-section full extension for every furniture need."
+      },
+      "handles": {
+        "name": "Handle Collection",
+        "series": "6 Series · 50+ Styles",
+        "desc": "From minimalist to luxurious, aluminum, stainless steel, brass multi-material options — the finishing touch for every piece."
+      }
+    },
+    "featured": {
+      "title": "Featured Products",
+      "subtitle": "Innovation Defines Quality",
+      "hinge": {
+        "name": "PSG-Pro Series Damped Hinge",
+        "desc": "Built-in integrated damper, 45mm short-arm design, compatible with various cabinet thicknesses. 3D adjustment ±3mm, easy installation. Tested for 200,000 cycles of proven durability.",
+        "load": "Load: 35kg",
+        "cycles": "Cycles: 200,000",
+        "adjust": "Adjust: ±3mm"
+      },
+      "drawer": {
+        "name": "PSG-Sleek Silent Drawer System",
+        "desc": "Fully concealed rail design, integrated damping and auto-close function. Ultra-slim 12mm side profile maximizes interior storage. 50kg load capacity, smooth and silent operation.",
+        "load": "Load: 50kg",
+        "cycles": "Cycles: 200,000",
+        "profile": "Profile: 12mm"
+      }
+    },
+    "detail": {
+      "specs": "Specifications",
+      "features": "Features",
+      "downloads": "Downloads",
+      "related": "Related Products"
+    }
+  },
+  "cases": {
+    "title": "Application Cases",
+    "subtitle": "From premium custom kitchens to modern office spaces, PINSHIGAO Hardware creates beautiful spaces with global clients",
+    "kitchen": {
+      "tag": "Kitchen Solutions",
+      "title": "Premium Custom Kitchen · Hangzhou",
+      "desc": "Featuring full PSG-Pro damped hinges and PSG-Sleek drawer systems"
+    },
+    "wardrobe": {
+      "tag": "Wardrobe Solutions",
+      "title": "Walk-in Closet · Shenzhen Bay",
+      "desc": "Concealed slides and integrated handle systems"
+    },
+    "office": {
+      "tag": "Office Solutions",
+      "title": "Modern Office · Shanghai Tower",
+      "desc": "Office furniture hardware systems"
+    }
+  },
+  "quick": {
+    "title": "One-Stop Service Support",
+    "catalog": {
+      "title": "Product Catalog",
+      "desc": "Download full product catalogs with detailed specifications and technical data."
+    },
+    "resources": {
+      "title": "Resources",
+      "desc": "Access installation guides, 3D models, CAD drawings, and technical documents."
+    },
+    "tech": {
+      "title": "Technical Support",
+      "desc": "Professional engineering team for product selection, installation guidance, and after-sales support."
+    },
+    "shop": {
+      "title": "Online Shop",
+      "desc": "Easy online ordering, real-time inventory, fast logistics."
+    }
+  },
+  "news": {
+    "title": "Latest News",
+    "item1": {
+      "title": "PINSHIGAO at China International Furniture Fair 2024",
+      "desc": "The new PSG-Pro series debuted publicly, receiving high praise from industry experts.",
+      "date": "2024.12.15"
+    },
+    "item2": {
+      "title": "New Servo-Drive Lift System Launched",
+      "desc": "Touch-open, intelligent stop — the perfect hardware solution for smart homes.",
+      "date": "2024.11.08"
+    },
+    "item3": {
+      "title": "Phase II of Foshan Smart Factory Begins Production",
+      "desc": "Annual capacity increased to 50 million units with new fully automated assembly lines.",
+      "date": "2024.10.20"
+    }
+  },
+  "cta": {
+    "title": "Partner with PINSHIGAO — Create Quality Spaces Together",
+    "desc": "Contact us for professional product selection advice and sample support"
+  },
+  "footer": {
+    "about": "Founded in 2004, PINSHIGAO Hardware specializes in furniture hardware R&D, manufacturing, and sales. Products exported to 50+ countries, serving 2,000+ furniture manufacturers.",
+    "products": "Products",
+    "support": "Support",
+    "aboutUs": "About",
+    "contactUs": "Contact",
+    "downloadCenter": "Download Center",
+    "installGuide": "Installation Guides",
+    "techData": "Technical Data",
+    "faq": "FAQ",
+    "warranty": "Warranty",
+    "companyProfile": "Company Profile",
+    "history": "History",
+    "manufacturing": "Manufacturing",
+    "certifications": "Certifications",
+    "careers": "Careers",
+    "hours": "Mon-Fri 8:30-17:30"
+  },
+  "admin": {
+    "login": "Admin Login",
+    "username": "Username",
+    "password": "Password",
+    "loginBtn": "Sign In",
+    "dashboard": "Dashboard",
+    "welcome": "Welcome Back",
+    "manageProducts": "Products",
+    "manageCategories": "Categories",
+    "manageNews": "News",
+    "managePages": "Pages",
+    "manageSettings": "Settings",
+    "manageMedia": "Media",
+    "logout": "Logout",
+    "addNew": "Add New",
+    "editProduct": "Edit Product",
+    "editCategory": "Edit Category",
+    "editNews": "Edit News",
+    "editPage": "Edit Page",
+    "productName": "Product Name",
+    "categoryName": "Category Name",
+    "newsTitle": "News Title",
+    "pageTitle": "Page Title",
+    "content": "Content",
+    "image": "Image",
+    "slug": "Slug",
+    "order": "Order",
+    "status": "Status",
+    "published": "Published",
+    "draft": "Draft",
+    "actions": "Actions",
+    "confirmDelete": "Are you sure you want to delete?",
+    "siteTitle": "Site Title",
+    "siteDescription": "Site Description",
+    "contactEmail": "Contact Email",
+    "contactPhone": "Contact Phone",
+    "address": "Company Address",
+    "statsProducts": "Products",
+    "statsNews": "News",
+    "statsOrders": "Orders",
+    "statsInquiries": "Inquiries",
+    "welcomeMessage": "Welcome back, here's your site overview.",
+    "quickActions": "Quick Actions",
+    "addProduct": "Add Product",
+    "addNews": "Add News",
+    "manageMedia": "Manage Media",
+    "managePages": "Manage Pages",
+    "siteSettings": "Site Settings",
+    "viewSite": "View Site",
+    "recentActivity": "Recent Activity",
+    "noActivity": "No recent activity.",
+    "activityUpdated": "Updated",
+    "activityCreated": "Created",
+    "activityUploaded": "Uploaded",
+    "activityPublished": "Published",
+    "activityDeleted": "Deleted",
+    "minutesAgo": "5 min ago",
+    "hourAgo": "1 hour ago",
+    "hoursAgo": "3 hours ago",
+    "yesterday": "Yesterday",
+    "daysAgo": "2 days ago",
+    "statsProductLabel": "Products",
+    "statsNewsLabel": "News",
+    "statsOrderLabel": "Orders",
+    "statsInquiryLabel": "Inquiries",
+    "addCategory": "Add Category",
+    "categories": "Categories",
+    "categoriesDesc": "Manage product categories",
+    "cancel": "Cancel",
+    "create": "Create",
+    "update": "Update",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "deleteCategoryWarning": "This action cannot be undone. Make sure no products are in this category.",
+    "displayOrder": "Display Order",
+    "editCategory": "Edit Category",
+    "noCategories": "No categories yet",
+    "noPages": "No pages yet",
+    "noSearchResults": "No matching results",
+    "search": "Search",
+    "searchCategories": "Search category name...",
+    "loading": "Loading...",
+    "imageUrl": "Image URL",
+    "imageUrlPlaceholder": "Enter image URL or upload image",
+    "slug": "Slug",
+    "slugHint": "Unique URL identifier, e.g.: hinge-series",
+    "slugPlaceholder": "Enter URL slug",
+    "nameZh": "Chinese Name",
+    "nameZhPlaceholder": "Enter Chinese name",
+    "nameEn": "English Name",
+    "nameEnPlaceholder": "Enter English name",
+    "nameDe": "German Name",
+    "nameDePlaceholder": "Enter German name",
+    "products": "Products",
+    "published": "Published",
+    "managePagesDesc": "Manage static page content"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Our Professional Team is Here to Help",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "success": "Message sent successfully! We will contact you soon."
+    },
+    "info": {
+      "address": "Office Address",
+      "phone": "Phone",
+      "email": "Email",
+      "hours": "Working Hours"
+    }
+  },
+  "about": {
+    "title": "About PINSHIGAO",
+    "subtitle": "Precision Hardware · Inspired Motion",
+    "intro": "Founded in 2004 and headquartered in Foshan, Guangdong — China's Hardware Capital — PINSHIGAO Hardware Co., Ltd. specializes in the R&D, manufacturing, and sales of furniture hardware, including hinges, drawer systems, lift systems, sliding systems, handles, and more.",
+    "mission": "Committed to providing high-quality, high-precision, high-reliability hardware solutions for furniture manufacturers worldwide, driving industry development through technological innovation.",
+    "values": "Quality · Innovation · Service",
+    "history": "Our History",
+    "milestones": [
+      {"year": "2004", "event": "Company founded in Foshan, Guangdong"},
+      {"year": "2008", "event": "ISO9001 Quality Management Certification"},
+      {"year": "2012", "event": "First automated production line established"},
+      {"year": "2016", "event": "Products exported to 30 countries"},
+      {"year": "2020", "event": "Phase I of Foshan Smart Factory launched"},
+      {"year": "2024", "event": "2,000+ global clients, 50M annual capacity"}
+    ],
+    "stats": [
+      {"value": "2,000+", "label": "Global Clients"},
+      {"value": "50+", "label": "Export Countries"},
+      {"value": "50M", "label": "Annual Capacity"},
+      {"value": "20", "label": "Years of Expertise"}
+    ]
+  },
+  "solutionsPage": {
+    "hero": {
+      "title": "Application Solutions",
+      "subtitle": "Comprehensive hardware solutions for every space — from kitchen to wardrobe to office"
+    },
+    "kitchen": {
+      "title": "Kitchen Solutions",
+      "desc": "Complete kitchen hardware systems featuring premium hinges, drawer slides, and lift mechanisms. Our kitchen solutions deliver silent damping, smooth motion, and long-lasting durability for modern culinary spaces."
+    },
+    "wardrobe": {
+      "title": "Wardrobe Solutions",
+      "desc": "Integrated wardrobe hardware systems combining smooth sliding doors, concealed drawer rails, and ergonomic handle designs. Create organized, elegant storage spaces with precision hardware."
+    },
+    "office": {
+      "title": "Office Solutions",
+      "desc": "Professional office furniture hardware including heavy-duty slides, lock systems, and cable management solutions. Designed for daily commercial use with reliability at the core."
+    },
+    "cta": {
+      "title": "Need a Custom Solution?",
+      "desc": "Our engineering team works closely with furniture manufacturers to develop tailored hardware solutions for your specific application requirements.",
+      "button": "Contact Us"
+    }
+  }
+}

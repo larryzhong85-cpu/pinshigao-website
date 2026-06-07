@@ -1,0 +1,364 @@
+{
+  "common": {
+    "companyName": "PINSHIGAO",
+    "companyNameEn": "PINSHIGAO",
+    "companyFull": "PINSHIGAO Hardware Co., Ltd.",
+    "companyFullEn": "PINSHIGAO Hardware Co., Ltd.",
+    "slogan": "Präzisionstechnik, Bewegendes Wohnen",
+    "sloganEn": "Precision Engineering, Inspired Living",
+    "tagline": "Präzisionsbeschläge · Bewegende Qualität",
+    "taglineEn": "Precision Hardware · Inspired Motion",
+    "phone": "+86 400-888-9999",
+    "email": "info@pinshigao.com",
+    "address": "Foshan, Guangdong, China",
+    "addressFull": "Leliu Straße, Shunde Bezirk, Foshan, Guangdong, China",
+    "copyright": "© 2024 PINSHIGAO Hardware Co., Ltd.",
+    "allRights": "Alle Rechte vorbehalten.",
+    "explore": "Produkte entdecken",
+    "learnMore": "Mehr erfahren",
+    "viewDetails": "Details ansehen",
+    "viewAll": "Alle anzeigen",
+    "readMore": "Mehr lesen",
+    "contactNow": "Jetzt anfragen",
+    "download": "Herunterladen",
+    "submit": "Absenden",
+    "send": "Senden",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "back": "Zurück",
+    "search": "Suche",
+    "noResults": "Keine Ergebnisse",
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolgreich",
+    "home": "Startseite",
+    "products": "Produkte",
+    "about": "Über Uns",
+    "news": "Neuigkeiten",
+    "contact": "Kontakt",
+    "solutions": "Lösungen",
+    "support": "Service",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen"
+  },
+  "nav": {
+    "home": "Startseite",
+    "products": "Produkte",
+    "solutions": "Lösungen",
+    "support": "Service",
+    "about": "Über Uns",
+    "news": "Neuigkeiten",
+    "contact": "Kontakt",
+    "catalog": "Katalog herunterladen"
+  },
+  "hero": {
+    "slide1Title": "Präzisionstechnik, Bewegendes Wohnen",
+    "slide1Desc": "Spezialisiert auf hochwertige Möbelbeschläge — vereint deutsche Präzision mit italienischem Design für ein unvergleichlich sanftes Bewegungserlebnis.",
+    "slide2Title": "Komplettes Beschlagsortiment",
+    "slide2Desc": "Scharniere, Schubladensysteme, Klappenbeschläge — jedes Produkt durchläuft strenge Qualitätstests für über 200.000 reibungslose Zyklen.",
+    "slide3Title": "Getrieben von Innovation",
+    "slide3Desc": "20 Jahre Branchenerfahrung, über 2.000 Möbelhersteller weltweit, setzen mit Innovation Branchenstandards."
+  },
+  "brand": {
+    "since": "Since 2004",
+    "title": "Präzisionsbeschläge · Bewegende Qualität",
+    "subtitle": "— moving ideas. moving quality. —",
+    "desc": "PINSHIGAO Hardware bietet hochwertige Beschlaglösungen für Möbelhersteller weltweit. Wir verbinden deutsche Präzisionstechnik mit italienischer Designästhetik und machen jeden Öffnungs- und Schließvorgang zum Genuss."
+  },
+  "products": {
+    "title": "Entdecken Sie unser Sortiment",
+    "subtitle": "Discover Our Product Range",
+    "viewAll": "Alle Produkte",
+    "categories": {
+      "hinges": {
+        "name": "Scharniersysteme",
+        "series": "8 Serien · 32 Spezifikationen",
+        "desc": "Von Standardscharnieren bis zu werkzeuglosen Schnellmontagesystemen für alle Möbelanwendungen mit 100.000-Zyklen-Qualitätssicherung."
+      },
+      "drawers": {
+        "name": "Schubladensysteme",
+        "series": "5 Serien · Vollauszug",
+        "desc": "Leise gedämpfte Schubladensysteme, 30-80kg Tragkraft, butterweicher Lauf für hochwertige Küchen- und Kleiderschranklösungen."
+      },
+      "lifts": {
+        "name": "Klappenbeschläge",
+        "series": "3 Serien · Berührungsöffnung",
+        "desc": "Elektrische und manuelle Klappenbeschläge mit Servoantriebstechnik, Stopp in jeder Position — neu definierte Oberschrankerfahrung."
+      },
+      "slides": {
+        "name": "Auszugssysteme",
+        "series": "4 Serien · Unsichtbares Design",
+        "desc": "Kugelgelagerte Schienen und verdeckte Unterflurführungen, 15-80kg Last, 3-teiliger Vollauszug für jeden Möbelbedarf."
+      },
+      "handles": {
+        "name": "Griffkollektion",
+        "series": "6 Serien · 50+ Stile",
+        "desc": "Von minimalistisch bis luxuriös, Aluminium, Edelstahl, Messing — der letzte Schliff für jedes Möbelstück."
+      }
+    },
+    "featured": {
+      "title": "Empfohlene Produkte",
+      "subtitle": "Innovation Definiert Qualität",
+      "hinge": {
+        "name": "PSG-Pro Serie Gedämpftes Scharnier",
+        "desc": "Integrierter Dämpfer, 45mm Kurzarm-Design, kompatibel mit verschiedenen Korpusstärken. 3D-Verstellung ±3mm, einfache Montage. Geprüft für 200.000 Zyklen.",
+        "load": "Belastung: 35kg",
+        "cycles": "Zyklen: 200.000",
+        "adjust": "Verstellung: ±3mm"
+      },
+      "drawer": {
+        "name": "PSG-Sleek Leises Schubladensystem",
+        "desc": "Vollständig verdeckte Schienenführung, integrierte Dämpfung und Selbstschließfunktion. Nur 12mm schmales Seitenprofil maximiert den Innenraum. 50kg Tragkraft, leiser Lauf.",
+        "load": "Belastung: 50kg",
+        "cycles": "Zyklen: 200.000",
+        "profile": "Profil: 12mm"
+      }
+    },
+    "detail": {
+      "specs": "Spezifikationen",
+      "features": "Eigenschaften",
+      "downloads": "Downloads",
+      "related": "Verwandte Produkte"
+    }
+  },
+  "cases": {
+    "title": "Anwendungsbeispiele",
+    "subtitle": "Von Premium-Küchen bis zu modernen Büroräumen — PINSHIGAO Hardware schafft mit globalen Kunden schöne Räume",
+    "kitchen": {
+      "tag": "Küchenlösungen",
+      "title": "Premium-Küche · Hangzhou",
+      "desc": "Mit PSG-Pro Dämpfungsscharnieren und PSG-Sleek Schubladensystemen"
+    },
+    "wardrobe": {
+      "tag": "Schranklösungen",
+      "title": "Begehbarer Kleiderschrank · Shenzhen Bay",
+      "desc": "Verdeckte Auszüge und integrierte Griffsysteme"
+    },
+    "office": {
+      "tag": "Bürolösungen",
+      "title": "Modernes Büro · Shanghai Tower",
+      "desc": "Büromöbel-Beschlagsysteme"
+    }
+  },
+  "quick": {
+    "title": "Rundum-Service",
+    "catalog": {
+      "title": "Produktkatalog",
+      "desc": "Laden Sie vollständige Produktkataloge mit detaillierten Spezifikationen herunter."
+    },
+    "resources": {
+      "title": "Downloads",
+      "desc": "Installationsanleitungen, 3D-Modelle, CAD-Zeichnungen und technische Dokumente."
+    },
+    "tech": {
+      "title": "Technischer Service",
+      "desc": "Professionelles Ingenieurteam für Produktauswahl, Montageanleitung und Kundendienst."
+    },
+    "shop": {
+      "title": "Online-Shop",
+      "desc": "Einfache Online-Bestellung, Echtzeit-Lagerbestand, schnelle Logistik."
+    }
+  },
+  "news": {
+    "title": "Aktuelles",
+    "item1": {
+      "title": "PINSHIGAO auf der China International Furniture Fair 2024",
+      "desc": "Die neue PSG-Pro Serie feierte ihr öffentliches Debüt und erhielt hohe Anerkennung von Branchenexperten.",
+      "date": "2024.12.15"
+    },
+    "item2": {
+      "title": "Neues Servoantrieb-Klappensystem eingeführt",
+      "desc": "Berührungsöffnung, intelligenter Stopp — die perfekte Beschlaglösung für Smart Homes.",
+      "date": "2024.11.08"
+    },
+    "item3": {
+      "title": "Phase II der Smart Factory in Foshan startet Produktion",
+      "desc": "Jahreskapazität auf 50 Millionen Einheiten erhöht, vollautomatisierte Montagelinien.",
+      "date": "2024.10.20"
+    }
+  },
+  "cta": {
+    "title": "Partner mit PINSHIGAO — Gemeinsam Qualitätsräume schaffen",
+    "desc": "Kontaktieren Sie uns für professionelle Produktberatung und Musterunterstützung"
+  },
+  "footer": {
+    "about": "Gegründet 2004, spezialisiert auf Möbelbeschläge Forschung, Entwicklung, Fertigung und Vertrieb. Export in über 50 Länder, Betreuung von 2.000+ Möbelherstellern.",
+    "products": "Produkte",
+    "support": "Service",
+    "aboutUs": "Über Uns",
+    "contactUs": "Kontakt",
+    "downloadCenter": "Download-Center",
+    "installGuide": "Montageanleitungen",
+    "techData": "Technische Daten",
+    "faq": "FAQ",
+    "warranty": "Garantie",
+    "companyProfile": "Unternehmensprofil",
+    "history": "Geschichte",
+    "manufacturing": "Produktion",
+    "certifications": "Zertifizierungen",
+    "careers": "Karriere",
+    "hours": "Mo-Fr 8:30-17:30"
+  },
+  "admin": {
+    "login": "Admin Login",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "loginBtn": "Anmelden",
+    "dashboard": "Dashboard",
+    "welcome": "Willkommen zurück",
+    "manageProducts": "Produkte",
+    "manageCategories": "Kategorien",
+    "manageNews": "Neuigkeiten",
+    "managePages": "Seiten",
+    "manageSettings": "Einstellungen",
+    "manageMedia": "Medien",
+    "logout": "Abmelden",
+    "addNew": "Hinzufügen",
+    "editProduct": "Produkt bearbeiten",
+    "editCategory": "Kategorie bearbeiten",
+    "editNews": "Neuigkeit bearbeiten",
+    "editPage": "Seite bearbeiten",
+    "productName": "Produktname",
+    "categoryName": "Kategoriename",
+    "newsTitle": "Titel",
+    "pageTitle": "Seitentitel",
+    "content": "Inhalt",
+    "image": "Bild",
+    "slug": "Slug",
+    "order": "Reihenfolge",
+    "status": "Status",
+    "published": "Veröffentlicht",
+    "draft": "Entwurf",
+    "actions": "Aktionen",
+    "confirmDelete": "Sind Sie sicher, dass Sie löschen möchten?",
+    "siteTitle": "Webseitentitel",
+    "siteDescription": "Webseitenbeschreibung",
+    "contactEmail": "Kontakt-E-Mail",
+    "contactPhone": "Telefon",
+    "address": "Adresse",
+    "statsProducts": "Produkte",
+    "statsNews": "Neuigkeiten",
+    "statsOrders": "Bestellungen",
+    "statsInquiries": "Anfragen",
+    "welcomeMessage": "Willkommen zurück, hier ist Ihre Übersicht.",
+    "quickActions": "Schnellaktionen",
+    "addProduct": "Produkt hinzufügen",
+    "addNews": "Neuigkeit hinzufügen",
+    "manageMedia": "Medien verwalten",
+    "managePages": "Seiten verwalten",
+    "siteSettings": "Einstellungen",
+    "viewSite": "Seite anzeigen",
+    "recentActivity": "Letzte Aktivität",
+    "noActivity": "Keine aktuellen Aktivitäten.",
+    "activityUpdated": "Aktualisiert",
+    "activityCreated": "Erstellt",
+    "activityUploaded": "Hochgeladen",
+    "activityPublished": "Veröffentlicht",
+    "activityDeleted": "Gelöscht",
+    "minutesAgo": "Vor 5 Minuten",
+    "hourAgo": "Vor 1 Stunde",
+    "hoursAgo": "Vor 3 Stunden",
+    "yesterday": "Gestern",
+    "daysAgo": "Vor 2 Tagen",
+    "statsProductLabel": "Produkte",
+    "statsNewsLabel": "Neuigkeiten",
+    "statsOrderLabel": "Bestellungen",
+    "statsInquiryLabel": "Anfragen",
+    "addCategory": "Kategorie hinzufügen",
+    "categories": "Kategorien",
+    "categoriesDesc": "Produktkategorien verwalten",
+    "cancel": "Abbrechen",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "saving": "Speichern...",
+    "deleting": "Löschen...",
+    "deleteCategoryWarning": "Dieser Vorgang kann nicht rückgängig gemacht werden.",
+    "displayOrder": "Reihenfolge",
+    "editCategory": "Kategorie bearbeiten",
+    "noCategories": "Noch keine Kategorien",
+    "noPages": "Noch keine Seiten",
+    "noSearchResults": "Keine passenden Ergebnisse",
+    "search": "Suche",
+    "searchCategories": "Kategoriename suchen...",
+    "loading": "Wird geladen...",
+    "imageUrl": "Bild-URL",
+    "imageUrlPlaceholder": "Bild-URL eingeben oder hochladen",
+    "slug": "Slug",
+    "slugHint": "Eindeutige URL-Kennung, z.B.: scharnier-serie",
+    "slugPlaceholder": "URL-Slug eingeben",
+    "nameZh": "Chinesischer Name",
+    "nameZhPlaceholder": "Chinesischen Namen eingeben",
+    "nameEn": "Englischer Name",
+    "nameEnPlaceholder": "Englischen Namen eingeben",
+    "nameDe": "Deutscher Name",
+    "nameDePlaceholder": "Deutschen Namen eingeben",
+    "products": "Produkte",
+    "published": "Veröffentlicht",
+    "managePagesDesc": "Statische Seiteninhalte verwalten"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Unser Team hilft Ihnen gerne",
+    "form": {
+      "name": "Ihr Name",
+      "email": "E-Mail-Adresse",
+      "phone": "Telefonnummer",
+      "message": "Ihre Nachricht",
+      "submit": "Nachricht senden",
+      "success": "Nachricht erfolgreich gesendet! Wir werden Sie bald kontaktieren."
+    },
+    "info": {
+      "address": "Büroanschrift",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "hours": "Geschäftszeiten"
+    }
+  },
+  "about": {
+    "title": "Über PINSHIGAO",
+    "subtitle": "Präzisionsbeschläge · Bewegende Qualität",
+    "intro": "Gegründet 2004 mit Hauptsitz in Foshan, Guangdong — Chinas Hauptstadt der Beschläge — ist PINSHIGAO Hardware Co., Ltd. spezialisiert auf Forschung, Entwicklung, Fertigung und Vertrieb von Möbelbeschlägen.",
+    "mission": "Wir bieten hochwertige, präzise und zuverlässige Beschlaglösungen für Möbelhersteller weltweit und treiben die Branchenentwicklung durch technologische Innovation voran.",
+    "values": "Qualität · Innovation · Service",
+    "history": "Unsere Geschichte",
+    "milestones": [
+      {"year": "2004", "event": "Gründung in Foshan, Guangdong"},
+      {"year": "2008", "event": "ISO9001 Qualitätsmanagement-Zertifizierung"},
+      {"year": "2012", "event": "Erste automatisierte Produktionslinie"},
+      {"year": "2016", "event": "Export in 30 Länder"},
+      {"year": "2020", "event": "Phase I der Foshan Smart Factory"},
+      {"year": "2024", "event": "2.000+ Kunden weltweit, 50M Kapazität"}
+    ],
+    "stats": [
+      {"value": "2.000+", "label": "Kunden weltweit"},
+      {"value": "50+", "label": "Exportländer"},
+      {"value": "50M", "label": "Jahreskapazität"},
+      {"value": "20", "label": "Jahre Erfahrung"}
+    ]
+  },
+  "solutionsPage": {
+    "hero": {
+      "title": "Anwendungslosungen",
+      "subtitle": "Umfassende Beschlaglosungen fur jeden Raum — von der Kuche uber den Kleiderschrank bis zum Buro"
+    },
+    "kitchen": {
+      "title": "Kuchenlosungen",
+      "desc": "Komplette Kuchenbeschlagsysteme mit hochwertigen Scharnieren, Schubladenschienen und Hubmechanismen. Unsere Kuchenlosungen bieten leise Dampfung, sanfte Bewegung und langlebige Qualitat fur moderne Kuchen."
+    },
+    "wardrobe": {
+      "title": "Kleiderschranklosungen",
+      "desc": "Integrierte Schrankbeschlagsysteme mit sanften Schiebeturen, verdeckten Schubladenschienen und ergonomischen Griffdesigns. Schaffen Sie organisierte, elegante Aufbewahrungsraume mit Prazisionsbeschlagen."
+    },
+    "office": {
+      "title": "Burolosungen",
+      "desc": "Professionelle Buromobelbeschlage, einschlieslich Schwerlastschienen, Schlie?systemen und Kabelfuhrungslosungen. Entwickelt fur den taglichen gewerblichen Gebrauch mit zuverlassiger Kernqualitat."
+    },
+    "cta": {
+      "title": "Benotigen Sie eine ma?geschneiderte Losung?",
+      "desc": "Unser Ingenieurteam arbeitet eng mit Mobelherstellern zusammen, um ma?geschneiderte Beschlaglosungen fur Ihre spezifischen Anwendungsanforderungen zu entwickeln.",
+      "button": "Kontaktieren Sie uns"
+    }
+  }
+}
