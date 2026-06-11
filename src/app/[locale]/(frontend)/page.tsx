@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -8,35 +9,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
 /* ------------------------------------------------------------------ */
-/*  Static demo data                                                   */
+/*  Types                                                               */
 /* ------------------------------------------------------------------ */
-const categories = [
-  {
-    key: 'hinges' as const,
-    image:
-      'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80',
-  },
-  {
-    key: 'drawers' as const,
-    image:
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80',
-  },
-  {
-    key: 'lifts' as const,
-    image:
-      'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&q=80',
-  },
-  {
-    key: 'slides' as const,
-    image:
-      'https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=600&q=80',
-  },
-  {
-    key: 'handles' as const,
-    image:
-      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=80',
-  },
-];
+interface HomeCategory {
+  id: number;
+  nameZh: string;
+  nameEn: string;
+  nameDe: string;
+  slug: string;
+  image: string | null;
+}
 
 const caseImages = [
   'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
@@ -84,6 +66,18 @@ export default function HomePage({
   const t = useTranslations();
   const pathname = usePathname();
   const locale = pathname?.split('/')[1] || 'zh';
+  const [dynamicCategories, setDynamicCategories] = useState<HomeCategory[]>([]);
+
+  useEffect(() => {
+    fetch('/api/categories')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) setDynamicCategories(data);
+      })
+      .catch(() => {}); // silently fail, use empty array
+  }, []);
+
+  const categories = dynamicCategories.length > 0 ? dynamicCategories : [];
 
   return (
     <>
@@ -142,212 +136,34 @@ export default function HomePage({
             }}
             className="!pb-4"
           >
-            {categories.map((cat) => (
-              <SwiperSlide key={cat.key} className="!w-[260px]">
+            {(categories.length > 0 ? categories : []).map((cat) => {
+              const name = (cat as any)[`name${locale.charAt(0).toUpperCase() + locale.slice(1)}`] || cat.nameZh;
+              const slug = cat.slug;
+              const img = cat.image || "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80";
+              return (
+              <SwiperSlide key={slug} className="!w-[260px]">
                 <Link
-                  href={`/${locale}/products/${cat.key}`}
+                  href={`/${locale}/products/${slug}`}
                   className="group block bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
                 >
-                  <div className="relative h-[200px] overflow-hidden">
+                  <div className="relative h-[300px] overflow-hidden">
                     <div
-                      className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
-                      style={{ backgroundImage: `url(${cat.image})` }}
+                      className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+                      style={{ backgroundImage: "url(" + img + ")" }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a5c]/80 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                      <h3 className="text-lg font-semibold">{name}</h3>
+                    </div>
                   </div>
                   <div className="p-5">
-                    <h3 className="text-[#1a3a5c] font-semibold text-base mb-1">
-                      {t(`products.categories.${cat.key}.name`)}
-                    </h3>
-                    <p className="text-gray-400 text-xs mb-3">
-                      {t(`products.categories.${cat.key}.series`)}
-                    </p>
-                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
-                      {t(`products.categories.${cat.key}.desc`)}
-                    </p>
-                    <div className="mt-4 text-[#c8a96e] text-sm font-medium flex items-center gap-2 group-hover:gap-3 transition-all">
-                      {t('common.viewDetails')}
-                      <i className="fa-solid fa-arrow-right text-xs" />
-                    </div>
+                    <p className="text-sm text-gray-500 leading-relaxed">{name}</p>
                   </div>
                 </Link>
               </SwiperSlide>
-            ))}
+              );
+            })}
           </Swiper>
-
-          <div className="text-center mt-12">
-            <Link
-              href={`/${locale}/products`}
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#1a3a5c] text-white text-sm font-medium
-                hover:bg-[#0f2640] transition-all hover:-translate-y-0.5 hover:shadow-lg"
-            >
-              {t('products.viewAll')}
-              <i className="fa-solid fa-arrow-right text-xs" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================ */}
-      {/*  4. Featured Products (alternating layout)                       */}
-      {/* ================================================================ */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1280px] mx-auto px-6">
-          {/* Section header */}
-          <div className="text-center mb-16">
-            <div className="text-[#c8a96e] text-sm font-medium tracking-[4px] uppercase mb-3 font-[family-name:var(--font-en)]">
-              {t('products.featured.subtitle')}
-            </div>
-            <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] font-semibold text-[#1a3a5c] leading-tight">
-              {t('products.featured.title')}
-            </h2>
-          </div>
-
-          {/* Featured #1 — Hinge (image left, text right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-            <div className="relative">
-              <div className="aspect-[4/3] bg-gray-100 overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=700&q=80"
-                  alt={t('products.featured.hinge.name')}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-[#c8a96e] flex items-center justify-center hidden lg:flex">
-                <span className="text-white text-xs font-bold text-center leading-tight">
-                  #1
-                  <br />
-                  Pro
-                </span>
-              </div>
-            </div>
-            <div>
-              <span className="text-[#c8a96e] text-xs tracking-[3px] uppercase font-medium font-[family-name:var(--font-en)]">
-                {t('common.products')}
-              </span>
-              <h3 className="text-2xl font-semibold text-[#1a3a5c] mt-2 mb-4">
-                {t('products.featured.hinge.name')}
-              </h3>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                {t('products.featured.hinge.desc')}
-              </p>
-              <div className="flex flex-wrap gap-3 mb-8">
-                <span className="px-4 py-2 bg-[#f5f7fa] text-sm text-[#1a3a5c] font-medium">
-                  {t('products.featured.hinge.load')}
-                </span>
-                <span className="px-4 py-2 bg-[#f5f7fa] text-sm text-[#1a3a5c] font-medium">
-                  {t('products.featured.hinge.cycles')}
-                </span>
-                <span className="px-4 py-2 bg-[#f5f7fa] text-sm text-[#1a3a5c] font-medium">
-                  {t('products.featured.hinge.adjust')}
-                </span>
-              </div>
-              <Link
-                href={`/${locale}/products/hinges/psg-pro`}
-                className="inline-flex items-center gap-2 text-[#1a3a5c] font-medium text-sm
-                  hover:text-[#c8a96e] transition-colors group"
-              >
-                {t('common.viewDetails')}
-                <i className="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Featured #2 — Drawer (image right, text left) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="lg:order-2 relative">
-              <div className="aspect-[4/3] bg-gray-100 overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80"
-                  alt={t('products.featured.drawer.name')}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-[#c8a96e] flex items-center justify-center hidden lg:flex">
-                <span className="text-white text-xs font-bold text-center leading-tight">
-                  #2
-                  <br />
-                  Sleek
-                </span>
-              </div>
-            </div>
-            <div className="lg:order-1">
-              <span className="text-[#c8a96e] text-xs tracking-[3px] uppercase font-medium font-[family-name:var(--font-en)]">
-                {t('common.products')}
-              </span>
-              <h3 className="text-2xl font-semibold text-[#1a3a5c] mt-2 mb-4">
-                {t('products.featured.drawer.name')}
-              </h3>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                {t('products.featured.drawer.desc')}
-              </p>
-              <div className="flex flex-wrap gap-3 mb-8">
-                <span className="px-4 py-2 bg-[#f5f7fa] text-sm text-[#1a3a5c] font-medium">
-                  {t('products.featured.drawer.load')}
-                </span>
-                <span className="px-4 py-2 bg-[#f5f7fa] text-sm text-[#1a3a5c] font-medium">
-                  {t('products.featured.drawer.cycles')}
-                </span>
-                <span className="px-4 py-2 bg-[#f5f7fa] text-sm text-[#1a3a5c] font-medium">
-                  {t('products.featured.drawer.profile')}
-                </span>
-              </div>
-              <Link
-                href={`/${locale}/products/drawers/psg-sleek`}
-                className="inline-flex items-center gap-2 text-[#1a3a5c] font-medium text-sm
-                  hover:text-[#c8a96e] transition-colors group"
-              >
-                {t('common.viewDetails')}
-                <i className="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================ */}
-      {/*  5. Application Cases Grid                                       */}
-      {/* ================================================================ */}
-      <section className="py-24 bg-[#f5f7fa]">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <div className="text-center mb-14">
-            <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] font-semibold text-[#1a3a5c] mb-3 leading-tight">
-              {t('cases.title')}
-            </h2>
-            <p className="text-gray-500 text-sm max-w-2xl mx-auto">
-              {t('cases.subtitle')}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(['kitchen', 'wardrobe', 'office'] as const).map(
-              (caseKey, idx) => (
-                <div
-                  key={caseKey}
-                  className="group relative h-[380px] overflow-hidden bg-gray-100 cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300"
-                >
-                  <div
-                    className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
-                    style={{
-                      backgroundImage: `url(${caseImages[idx]})`,
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="text-[#c8a96e] text-xs tracking-[3px] uppercase mb-2 font-medium">
-                      {t(`cases.${caseKey}.tag`)}
-                    </div>
-                    <h3 className="text-white font-semibold text-lg mb-1">
-                      {t(`cases.${caseKey}.title`)}
-                    </h3>
-                    <p className="text-white/70 text-sm">
-                      {t(`cases.${caseKey}.desc`)}
-                    </p>
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
         </div>
       </section>
 
