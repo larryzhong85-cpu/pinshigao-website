@@ -233,6 +233,8 @@
     "draft": "草稿",
     "actions": "操作",
     "confirmDelete": "确定要删除吗？",
+    "delete": "删除",
+    "edit": "编辑",
     "siteTitle": "网站标题",
     "siteDescription": "网站描述",
     "contactEmail": "联系邮箱",

@@ -233,6 +233,8 @@
     "draft": "Entwurf",
     "actions": "Aktionen",
     "confirmDelete": "Sind Sie sicher, dass Sie löschen möchten?",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
     "siteTitle": "Webseitentitel",
     "siteDescription": "Webseitenbeschreibung",
     "contactEmail": "Kontakt-E-Mail",

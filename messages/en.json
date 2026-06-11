@@ -233,6 +233,8 @@
     "draft": "Draft",
     "actions": "Actions",
     "confirmDelete": "Are you sure you want to delete?",
+    "delete": "Delete",
+    "edit": "Edit",
     "siteTitle": "Site Title",
     "siteDescription": "Site Description",
     "contactEmail": "Contact Email",
