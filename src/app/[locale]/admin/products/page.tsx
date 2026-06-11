@@ -35,6 +35,8 @@ function ConfirmDialog({
   onConfirm,
   onCancel,
   loading,
+  confirmText = 'Delete',
+  confirmLoadingText = 'Deleting...',
 }: {
   open: boolean;
   title: string;
@@ -42,6 +44,8 @@ function ConfirmDialog({
   onConfirm: () => void;
   onCancel: () => void;
   loading?: boolean;
+  confirmText?: string;
+  confirmLoadingText?: string;
 }) {
   if (!open) return null;
 
@@ -65,7 +69,7 @@ function ConfirmDialog({
             className="px-4 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors disabled:opacity-50 inline-flex items-center gap-2"
           >
             {loading && <i className="fa-solid fa-spinner fa-spin" />}
-            {loading ? t('deleting') : t('delete')}
+            {loading ? confirmLoadingText : confirmText}
           </button>
         </div>
       </div>
@@ -294,15 +298,17 @@ export default function AdminProductsPage() {
       {/* Delete confirmation dialog */}
       <ConfirmDialog
         open={deleteTarget !== null}
-        title="Delete Product"
+        title={t('delete')}
         message={
           deleteTarget
-            ? `Are you sure you want to delete "${deleteTarget.nameZh}"? This action cannot be undone.`
+            ? `${t('confirmDelete')} "${deleteTarget.nameZh}"?`
             : ''
         }
         onConfirm={handleDelete}
         onCancel={() => setDeleteTarget(null)}
         loading={deleting}
+        confirmText={t('delete')}
+        confirmLoadingText={t('deleting')}
       />
     </AdminLayout>
   );
