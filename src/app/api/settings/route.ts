@@ -10,17 +10,34 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   const body = await request.json()
-  const { key, value } = body
 
-  if (!key || value === undefined) {
-    return Response.json({ error: 'key and value are required' }, { status: 400 })
+  // Support both single {key, value} and multi-key object {siteTitle: "...", ...}
+  const updates: { key: string; value: string }[] = [];
+
+  if (body.key && body.value !== undefined) {
+    updates.push({ key: body.key, value: body.value });
+  } else {
+    // Assume it's a full settings object
+    for (const [key, value] of Object.entries(body)) {
+      if (typeof value === 'string') {
+        updates.push({ key, value });
+      }
+    }
   }
 
-  const setting = await prisma.setting.upsert({
-    where: { key },
-    update: { value },
-    create: { key, value },
-  })
+  if (updates.length === 0) {
+    return Response.json({ error: 'No valid settings to update' }, { status: 400 });
+  }
 
-  return Response.json(setting)
+  const results = [];
+  for (const { key, value } of updates) {
+    const setting = await prisma.setting.upsert({
+      where: { key },
+      update: { value },
+      create: { key, value },
+    });
+    results.push(setting);
+  }
+
+  return Response.json(results);
 }

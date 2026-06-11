@@ -2,16 +2,17 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 const sidebarItems = [
-  { href: 'dashboard', label: 'Dashboard', icon: 'fa-gauge-high' },
-  { href: 'products', label: 'Products', icon: 'fa-box' },
-  { href: 'categories', label: 'Categories', icon: 'fa-tags' },
-  { href: 'news', label: 'News', icon: 'fa-newspaper' },
-  { href: 'pages', label: 'Pages', icon: 'fa-file-lines' },
-  { href: 'settings', label: 'Settings', icon: 'fa-gear' },
-  { href: 'media', label: 'Media', icon: 'fa-image' },
+  { href: 'dashboard', key: 'dashboard', icon: 'fa-gauge-high' },
+  { href: 'products', key: 'manageProducts', icon: 'fa-box' },
+  { href: 'categories', key: 'manageCategories', icon: 'fa-tags' },
+  { href: 'news', key: 'manageNews', icon: 'fa-newspaper' },
+  { href: 'pages', key: 'managePages', icon: 'fa-file-lines' },
+  { href: 'settings', key: 'manageSettings', icon: 'fa-gear' },
+  { href: 'media', key: 'manageMedia', icon: 'fa-image' },
 ];
 
 function getToken(): string | null {
@@ -30,6 +31,7 @@ function clearToken(): void {
 }
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const t = useTranslations('admin');
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -90,9 +92,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Logo */}
         <div className="h-16 flex items-center justify-between px-5 border-b border-white/10 shrink-0">
           <Link href={`/${locale}/admin`}>
-            <img src="/logo.jpeg" alt="品仕高 PINSHIGAO" className="h-20 w-auto" />
+            <img src="/logo.jpeg" alt="品仕高 PINSHIGAO" className="h-10 w-auto" />
           </Link>
-          {/* Close button (mobile only) */}
           <button
             onClick={() => setSidebarOpen(false)}
             className="w-8 h-8 flex items-center justify-center lg:hidden text-white/60 hover:text-white transition-colors"
@@ -115,20 +116,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
             >
               <i className={`fa-solid ${item.icon} w-5 text-center text-sm shrink-0`} />
-              {item.label}
+              {t(item.key)}
             </Link>
           ))}
         </nav>
 
-        {/* Bottom link */}
-        <div className="p-4 border-t border-white/10 shrink-0">
+        {/* Bottom links */}
+        <div className="p-4 border-t border-white/10 shrink-0 space-y-1">
           <Link
             href={`/${locale}`}
             className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-white/50 hover:text-white/80 hover:bg-white/5 transition-colors"
           >
             <i className="fa-solid fa-arrow-left w-5 text-center shrink-0" />
-            Back to Site
+            {t('viewSite')}
           </Link>
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-white/50 hover:text-white/80 hover:bg-white/5 transition-colors"
+          >
+            <i className="fa-solid fa-right-from-bracket w-5 text-center shrink-0" />
+            {t('logout')}
+          </button>
         </div>
       </aside>
 
@@ -137,7 +145,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Top bar */}
         <header className="h-16 bg-white border-b border-[#e8e8e8] flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30 shrink-0">
           <div className="flex items-center gap-3">
-            {/* Hamburger (mobile) */}
             <button
               onClick={() => setSidebarOpen(true)}
               className="w-10 h-10 flex flex-col justify-center items-center gap-1 lg:hidden"
@@ -148,26 +155,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <span className="block w-5 h-[2px] bg-[#1a3a5c] rounded" />
             </button>
             <h1 className="text-lg font-semibold text-[#1a3a5c] hidden sm:block select-none">
-              Admin Panel
+              {t('dashboard')}
             </h1>
           </div>
 
           <div className="flex items-center gap-3">
-            {/* User info */}
             <div className="flex items-center gap-2 text-sm">
               <div className="w-8 h-8 rounded-full bg-[#1a3a5c] text-white flex items-center justify-center text-xs font-medium select-none">
                 A
               </div>
               <span className="text-[#1a1a1a] hidden sm:inline">Admin</span>
             </div>
-
-            {/* Logout */}
             <button
               onClick={handleLogout}
               className="px-3 py-2 text-sm text-[#666666] hover:text-[#1a3a5c] transition-colors flex items-center gap-2 rounded-lg hover:bg-gray-50"
             >
               <i className="fa-solid fa-right-from-bracket" />
-              <span className="hidden sm:inline">Logout</span>
+              <span className="hidden sm:inline">{t('logout')}</span>
             </button>
           </div>
         </header>

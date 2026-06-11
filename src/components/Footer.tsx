@@ -10,6 +10,9 @@ export default function Footer() {
   const pathname = usePathname();
   const currentLocale = pathname?.split('/')[1] || 'zh';
 
+  // Don't render on admin pages
+  if (pathname?.includes('/admin/')) return null;
+
   const productLinks = [
     { href: `/${currentLocale}/products/hinges`, zh: '铰链系统', en: 'Hinge Systems', de: 'Scharniersysteme' },
     { href: `/${currentLocale}/products/drawers`, zh: '抽屉系统', en: 'Drawer Systems', de: 'Schubladensysteme' },

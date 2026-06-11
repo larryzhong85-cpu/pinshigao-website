@@ -26,7 +26,9 @@ async function main() {
     { key: 'siteDescription', value: '专业家具五金解决方案 — 铰链、滑轨、抽屉系统、上翻门系统' },
     { key: 'contactEmail', value: 'info@pinshigao.com' },
     { key: 'contactPhone', value: '+86 400-888-9999' },
-    { key: 'address', value: '广东省佛山市顺德区勒流街道' },
+    { key: 'contactAddress', value: '广东省佛山市顺德区勒流街道' },
+    { key: 'copyright', value: '© 2024 品仕高五金有限公司 版权所有' },
+    { key: 'footerAbout', value: '品仕高五金成立于2004年，专业从事家具五金研发、制造与销售。' },
   ];
 
   for (const setting of defaultSettings) {

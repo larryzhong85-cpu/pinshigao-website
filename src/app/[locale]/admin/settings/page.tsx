@@ -151,14 +151,21 @@ export default function AdminSettingsPage() {
           throw new Error(err.message || L('errorLoad'));
         }
         const data = await res.json();
+        // API returns [{key, value}, ...] - convert to object
+        const dataObj: Record<string, string> = {};
+        if (Array.isArray(data)) {
+          data.forEach((item: { key: string; value: string }) => {
+            dataObj[item.key] = item.value ?? '';
+          });
+        }
         const mapped: SettingsData = {
-          siteTitle: data.siteTitle ?? '',
-          siteDescription: data.siteDescription ?? '',
-          contactEmail: data.contactEmail ?? '',
-          contactPhone: data.contactPhone ?? '',
-          contactAddress: data.contactAddress ?? '',
-          copyright: data.copyright ?? '',
-          footerAbout: data.footerAbout ?? '',
+          siteTitle: dataObj.siteTitle ?? '',
+          siteDescription: dataObj.siteDescription ?? '',
+          contactEmail: dataObj.contactEmail ?? '',
+          contactPhone: dataObj.contactPhone ?? '',
+          contactAddress: dataObj.contactAddress ?? '',
+          copyright: dataObj.copyright ?? '',
+          footerAbout: dataObj.footerAbout ?? '',
         };
         if (!cancelled) {
           setSettings(mapped);

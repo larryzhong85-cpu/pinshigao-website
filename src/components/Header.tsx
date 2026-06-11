@@ -18,6 +18,9 @@ export default function Header() {
 
   const currentLocale = locales.find(l => pathname.startsWith(`/${l.code}`))?.code || 'zh';
 
+  // Don't render on admin pages
+  if (pathname?.includes('/admin/')) return null;
+
   const navItems = [
     { href: `/${currentLocale}`, label: t('home') },
     { href: `/${currentLocale}/products`, label: t('products') },
