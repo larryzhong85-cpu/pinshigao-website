@@ -2,6 +2,7 @@
 import AdminLayout from '@/components/AdminLayout';
 
 import { useState, useEffect, FormEvent } from 'react';
+import { useTranslations } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 
 interface Category {
@@ -13,6 +14,7 @@ interface Category {
 }
 
 export default function NewProductPage() {
+  const t = useTranslations("admin");
   const router = useRouter();
   const pathname = usePathname();
   const locale = pathname?.split('/')[1] || 'zh';
@@ -131,7 +133,7 @@ export default function NewProductPage() {
   return (<AdminLayout>
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-primary">New Product</h1>
+        <h1 className="text-2xl font-bold text-primary">{t("addProduct")}</h1>
         <button
           type="button"
           onClick={() => router.push(`/${locale}/admin/products`)}
@@ -150,7 +152,7 @@ export default function NewProductPage() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* ---- Names ---- */}
         <div>
-          <h2 className={sectionTitle}>Names</h2>
+          <h2 className={sectionTitle}>{t("productName")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className={labelClass}>
@@ -221,10 +223,10 @@ export default function NewProductPage() {
 
         {/* ---- Descriptions ---- */}
         <div>
-          <h2 className={sectionTitle}>Descriptions</h2>
+          <h2 className={sectionTitle}>{t("content")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className={labelClass}>Description (ZH)</label>
+              <label className={labelClass}>ZH</label>
               <textarea
                 className={`${inputClass} resize-y min-h-[100px]`}
                 value={descZh}
@@ -232,7 +234,7 @@ export default function NewProductPage() {
               />
             </div>
             <div>
-              <label className={labelClass}>Description (EN)</label>
+              <label className={labelClass}>EN</label>
               <textarea
                 className={`${inputClass} resize-y min-h-[100px]`}
                 value={descEn}
@@ -240,7 +242,7 @@ export default function NewProductPage() {
               />
             </div>
             <div>
-              <label className={labelClass}>Description (DE)</label>
+              <label className={labelClass}>DE</label>
               <textarea
                 className={`${inputClass} resize-y min-h-[100px]`}
                 value={descDe}
@@ -255,7 +257,7 @@ export default function NewProductPage() {
           <h2 className={sectionTitle}>Settings</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className={labelClass}>Category</label>
+              <label className={labelClass}>{t("categories")}</label>
               <select
                 className={inputClass}
                 value={categoryId}
@@ -278,7 +280,7 @@ export default function NewProductPage() {
                   onChange={(e) => setFeatured(e.target.checked)}
                   className="w-4 h-4 rounded border-gray-300 text-accent focus:ring-accent"
                 />
-                <span className="text-sm font-medium text-gray-700">Featured</span>
+                <span className="text-sm font-medium text-gray-700">{t("featured")}</span>
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer">
@@ -288,7 +290,7 @@ export default function NewProductPage() {
                   onChange={(e) => setPublished(e.target.checked)}
                   className="w-4 h-4 rounded border-gray-300 text-accent focus:ring-accent"
                 />
-                <span className="text-sm font-medium text-gray-700">Published</span>
+                <span className="text-sm font-medium text-gray-700">{t("published")}</span>
               </label>
             </div>
           </div>
