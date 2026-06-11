@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 const sidebarItems = [
-  { href: 'dashboard', key: 'dashboard', icon: 'fa-gauge-high' },
+  { href: '', key: 'dashboard', icon: 'fa-gauge-high' },
   { href: 'products', key: 'manageProducts', icon: 'fa-box' },
   { href: 'categories', key: 'manageCategories', icon: 'fa-tags' },
   { href: 'news', key: 'manageNews', icon: 'fa-newspaper' },
@@ -54,6 +54,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, [locale, router]);
 
   const isActive = (href: string) => {
+    if (!href) return pathname === `/${locale}/admin` || pathname === `/${locale}/admin/`;
     const adminPath = `/${locale}/admin/${href}`;
     return pathname === adminPath || pathname.startsWith(adminPath + '/');
   };
@@ -108,7 +109,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {sidebarItems.map((item) => (
             <Link
               key={item.href}
-              href={`/${locale}/admin/${item.href}`}
+              href={item.href ? `/${locale}/admin/${item.href}` : `/${locale}/admin`}
               onClick={() => setSidebarOpen(false)}
               className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors
                 ${isActive(item.href)

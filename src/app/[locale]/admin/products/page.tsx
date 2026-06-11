@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import AdminLayout from '@/components/AdminLayout';
 
@@ -64,7 +65,7 @@ function ConfirmDialog({
             className="px-4 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors disabled:opacity-50 inline-flex items-center gap-2"
           >
             {loading && <i className="fa-solid fa-spinner fa-spin" />}
-            {loading ? 'Deleting...' : 'Delete'}
+            {loading ? t('deleting') : t('delete')}
           </button>
         </div>
       </div>
@@ -76,6 +77,7 @@ function ConfirmDialog({
 /*  Page                                                                 */
 /* ------------------------------------------------------------------ */
 export default function AdminProductsPage() {
+  const t = useTranslations("admin");
   const params = useParams();
   const locale = params.locale as string;
   const router = useRouter();
@@ -144,7 +146,7 @@ export default function AdminProductsPage() {
       {/* Page header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Products</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('manageProducts')}</h1>
           <p className="text-sm text-gray-500 mt-1">Manage your product catalog</p>
         </div>
         <Link
@@ -181,7 +183,7 @@ export default function AdminProductsPage() {
       {!loading && !error && products.length === 0 && (
         <div className="bg-white border border-gray-200 rounded-lg p-12 text-center">
           <i className="fa-solid fa-cube text-4xl text-gray-300 mb-4" />
-          <p className="text-gray-500 text-sm mb-4">No products yet.</p>
+          <p className="text-gray-500 text-sm mb-4">{t('noSearchResults')}</p>
           <Link
             href={`/${locale}/admin/products/new`}
             className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#c8a96e] text-white text-sm font-medium rounded-lg hover:bg-[#a8894e] transition-colors"
@@ -199,11 +201,11 @@ export default function AdminProductsPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="text-left px-4 py-3 font-medium text-gray-600 w-16">Image</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-600">Name (zh)</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-600">Category</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-600">Status</th>
-                  <th className="text-right px-4 py-3 font-medium text-gray-600 w-32">Actions</th>
+                  <th className="text-left px-4 py-3 font-medium text-gray-600 w-16">{t('image')}</th>
+                  <th className="text-left px-4 py-3 font-medium text-gray-600">{t('nameZh')}</th>
+                  <th className="text-left px-4 py-3 font-medium text-gray-600">{t('categories')}</th>
+                  <th className="text-left px-4 py-3 font-medium text-gray-600">{t('status')}</th>
+                  <th className="text-right px-4 py-3 font-medium text-gray-600 w-32">{t('actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
