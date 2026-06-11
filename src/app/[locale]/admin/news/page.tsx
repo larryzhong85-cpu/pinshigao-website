@@ -90,11 +90,11 @@ export default function AdminNewsPage() {
     } finally {
       setLoading(false);
     }
-  }, [search, showPublished, router, locale]);
+  }, [router, locale]); // stable deps
 
   useEffect(() => {
     fetchNews();
-  }, [fetchNews]);
+  }, []); // only on mount
 
   // ---------- Toggle published ----------
   async function togglePublished(article: NewsArticle) {
