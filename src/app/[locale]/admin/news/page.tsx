@@ -1,4 +1,5 @@
 'use client';
+import AdminLayout from '@/components/AdminLayout';
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -170,7 +171,7 @@ export default function AdminNewsPage() {
     return true;
   });
 
-  return (
+  return (<AdminLayout>
     <div className="min-h-screen bg-gray-50">
       {/* ========== TOP NAV ========== */}
       <header className="bg-white border-b border-[var(--color-border)]">
@@ -470,5 +471,6 @@ export default function AdminNewsPage() {
       </div>
 
     </div>
+    </AdminLayout>
   );
 }

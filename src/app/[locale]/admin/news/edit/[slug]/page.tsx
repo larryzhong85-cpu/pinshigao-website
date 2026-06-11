@@ -1,4 +1,5 @@
 'use client';
+import AdminLayout from '@/components/AdminLayout';
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
@@ -204,7 +205,7 @@ export default function EditNewsPage() {
 
   /* ---------- main render ---------- */
 
-  return (
+  return (<AdminLayout>
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-primary">Edit News Article</h1>
@@ -404,5 +405,6 @@ export default function EditNewsPage() {
         </div>
       </form>
     </div>
+    </AdminLayout>
   );
 }

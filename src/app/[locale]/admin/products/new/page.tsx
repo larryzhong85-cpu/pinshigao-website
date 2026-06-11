@@ -1,4 +1,5 @@
 'use client';
+import AdminLayout from '@/components/AdminLayout';
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -127,7 +128,7 @@ export default function NewProductPage() {
   const labelClass = 'block text-sm font-medium text-gray-700 mb-1';
   const sectionTitle = 'text-base font-semibold text-primary mt-6 mb-3 pb-2 border-b border-gray-200';
 
-  return (
+  return (<AdminLayout>
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-primary">New Product</h1>
@@ -345,5 +346,6 @@ export default function NewProductPage() {
         </div>
       </form>
     </div>
+    </AdminLayout>
   );
 }

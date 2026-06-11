@@ -20,7 +20,7 @@ const newsData: NewsItem[] = [
   {
     id: '1',
     slug: 'china-furniture-fair-2024',
-    image: '/images/news/fair-2024.jpg',
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80',
     date: '2024.12.15',
     title: {
       zh: '品仕高亮相2024中国国际家具展',
@@ -36,7 +36,7 @@ const newsData: NewsItem[] = [
   {
     id: '2',
     slug: 'servo-drive-lift-system-launch',
-    image: '/images/news/lift-system.jpg',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
     date: '2024.11.08',
     title: {
       zh: '全新伺服驱动上翻门系统发布',
@@ -52,7 +52,7 @@ const newsData: NewsItem[] = [
   {
     id: '3',
     slug: 'foshan-smart-factory-phase2',
-    image: '/images/news/factory.jpg',
+    image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600&q=80',
     date: '2024.10.20',
     title: {
       zh: '佛山智能制造基地二期投产',
@@ -68,7 +68,7 @@ const newsData: NewsItem[] = [
   {
     id: '4',
     slug: 'germany-design-award-2024',
-    image: '/images/news/award.jpg',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80',
     date: '2024.09.05',
     title: {
       zh: '品仕高荣获德国设计奖',
@@ -84,7 +84,7 @@ const newsData: NewsItem[] = [
   {
     id: '5',
     slug: 'new-showroom-shanghai',
-    image: '/images/news/showroom.jpg',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80',
     date: '2024.07.18',
     title: {
       zh: '品仕高上海旗舰展厅开幕',
@@ -100,7 +100,7 @@ const newsData: NewsItem[] = [
   {
     id: '6',
     slug: 'smart-home-hardware-partnership',
-    image: '/images/news/partnership.jpg',
+    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80',
     date: '2024.05.22',
     title: {
       zh: '品仕高与华为智慧家居达成战略合作',

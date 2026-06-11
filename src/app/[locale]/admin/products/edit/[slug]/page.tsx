@@ -1,4 +1,5 @@
 'use client';
+import AdminLayout from '@/components/AdminLayout';
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -178,7 +179,7 @@ export default function EditProductPage() {
     );
   }
 
-  return (
+  return (<AdminLayout>
     <div className="min-h-screen bg-gray-50 py-10">
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
@@ -449,5 +450,6 @@ export default function EditProductPage() {
         </form>
       </div>
     </div>
+    </AdminLayout>
   );
 }

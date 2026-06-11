@@ -1,4 +1,5 @@
 'use client';
+import AdminLayout from '@/components/AdminLayout';
 
 import { useState, FormEvent, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -131,7 +132,7 @@ export default function AdminNewsNewPage() {
   const textareaClass = 'w-full px-3.5 py-2.5 text-sm border border-gray-200 rounded-sm bg-white text-gray-800 placeholder-gray-300 outline-none transition-colors focus:border-[#c8a96e] focus:ring-2 focus:ring-[#c8a96e]/20 disabled:opacity-50 resize-y min-h-[120px]';
   const langTagClass = 'inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-sm bg-gray-100 text-gray-500';
 
-  return (
+  return (<AdminLayout>
     <div className="min-h-screen bg-gray-50">
       {/* ========== TOP NAV ========== */}
       <header className="bg-white border-b border-gray-200">
@@ -411,5 +412,6 @@ export default function AdminNewsNewPage() {
       </div>
 
     </div>
+    </AdminLayout>
   );
 }
