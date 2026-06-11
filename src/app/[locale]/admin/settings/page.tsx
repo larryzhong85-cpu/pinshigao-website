@@ -182,7 +182,8 @@ export default function AdminSettingsPage() {
 
     load();
     return () => { cancelled = true; };
-  }, [locale, router, L]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /* ---------- Field change ---------- */
   function updateField<K extends keyof SettingsData>(key: K, value: SettingsData[K]) {
