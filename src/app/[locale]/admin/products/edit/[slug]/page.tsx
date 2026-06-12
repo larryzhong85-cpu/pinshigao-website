@@ -3,6 +3,7 @@ import AdminLayout from '@/components/AdminLayout';
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface Category {
   id: number;
@@ -33,6 +34,7 @@ interface ProductFormData {
 }
 
 export default function EditProductPage() {
+  const t = useTranslations('admin');
   const params = useParams<{ locale: string; slug: string }>();
   const router = useRouter();
   const locale = params.locale;
@@ -73,7 +75,7 @@ export default function EditProductPage() {
         ]);
 
         if (!productRes.ok) {
-          throw new Error('Product not found');
+          throw new Error(t('productNotFound'));
         }
 
         const product = await productRes.json();
@@ -104,14 +106,14 @@ export default function EditProductPage() {
           published: product.published ?? true,
         });
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load product');
+        setError(err instanceof Error ? err.message : t('serverError'));
       } finally {
         setLoading(false);
       }
     }
 
     loadData();
-  }, [slug]);
+  }, [slug, t]);
 
   function updateField<K extends keyof ProductFormData>(
     key: K,
@@ -141,17 +143,17 @@ export default function EditProductPage() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || `Server error: ${res.status}`);
+        throw new Error(data.error || t('serverError'));
       }
 
-      setStatusMessage('Product updated successfully.');
+      setStatusMessage(t('productUpdated'));
 
       setTimeout(() => {
         router.push(`/${locale}/admin/products`);
         router.refresh();
       }, 1200);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to update product');
+      setError(err instanceof Error ? err.message : t('serverError'));
     } finally {
       setSaving(false);
     }
@@ -160,7 +162,7 @@ export default function EditProductPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-gray-500 text-lg">Loading product...</p>
+        <p className="text-gray-500 text-lg">{t('loadingProduct')}</p>
       </div>
     );
   }
@@ -173,7 +175,7 @@ export default function EditProductPage() {
           onClick={() => router.back()}
           className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
         >
-          Go Back
+          {t('goBack')}
         </button>
       </div>
     );
@@ -189,10 +191,10 @@ export default function EditProductPage() {
               onClick={() => router.back()}
               className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-flex items-center gap-1"
             >
-              &larr; Back
+              &larr; {t('goBack')}
             </button>
-            <h1 className="text-2xl font-bold text-gray-900">Edit Product</h1>
-            <p className="text-sm text-gray-500 mt-1">Slug: {slug}</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('editProduct')}</h1>
+            <p className="text-sm text-gray-500 mt-1">{t('slug')}: {slug}</p>
           </div>
         </div>
 
@@ -212,11 +214,11 @@ export default function EditProductPage() {
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Multilingual Names */}
           <section className="bg-white rounded shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Name</h2>
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('productName')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
-                  Name (ZH) <span className="text-red-500">*</span>
+                  {t('productName')} (ZH) <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -228,7 +230,7 @@ export default function EditProductPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
-                  Name (EN) <span className="text-red-500">*</span>
+                  {t('productName')} (EN) <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -240,7 +242,7 @@ export default function EditProductPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
-                  Name (DE) <span className="text-red-500">*</span>
+                  {t('productName')} (DE) <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -255,10 +257,10 @@ export default function EditProductPage() {
 
           {/* Subtitles */}
           <section className="bg-white rounded shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Subtitle</h2>
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('subtitle')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Subtitle (ZH)</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('subtitle')} (ZH)</label>
                 <input
                   type="text"
                   value={form.subtitleZh}
@@ -267,7 +269,7 @@ export default function EditProductPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Subtitle (EN)</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('subtitle')} (EN)</label>
                 <input
                   type="text"
                   value={form.subtitleEn}
@@ -276,7 +278,7 @@ export default function EditProductPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Subtitle (DE)</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('subtitle')} (DE)</label>
                 <input
                   type="text"
                   value={form.subtitleDe}
@@ -289,10 +291,10 @@ export default function EditProductPage() {
 
           {/* Descriptions */}
           <section className="bg-white rounded shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Description</h2>
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('productDescription')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Description (ZH)</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('productDescription')} (ZH)</label>
                 <textarea
                   rows={4}
                   value={form.descZh}
@@ -301,7 +303,7 @@ export default function EditProductPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Description (EN)</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('productDescription')} (EN)</label>
                 <textarea
                   rows={4}
                   value={form.descEn}
@@ -310,7 +312,7 @@ export default function EditProductPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Description (DE)</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('productDescription')} (DE)</label>
                 <textarea
                   rows={4}
                   value={form.descDe}
@@ -323,36 +325,36 @@ export default function EditProductPage() {
 
           {/* Specifications */}
           <section className="bg-white rounded shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Specifications</h2>
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('specifications')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Specs (ZH)</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('specifications')} (ZH)</label>
                 <textarea
                   rows={5}
                   value={form.specsZh}
                   onChange={(e) => updateField('specsZh', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
-                  placeholder="JSON or formatted text"
+                  placeholder={t('specsPlaceholder')}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Specs (EN)</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('specifications')} (EN)</label>
                 <textarea
                   rows={5}
                   value={form.specsEn}
                   onChange={(e) => updateField('specsEn', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
-                  placeholder="JSON or formatted text"
+                  placeholder={t('specsPlaceholder')}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Specs (DE)</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('specifications')} (DE)</label>
                 <textarea
                   rows={5}
                   value={form.specsDe}
                   onChange={(e) => updateField('specsDe', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
-                  placeholder="JSON or formatted text"
+                  placeholder={t('specsPlaceholder')}
                 />
               </div>
             </div>
@@ -360,32 +362,32 @@ export default function EditProductPage() {
 
           {/* Images, Category, Settings */}
           <section className="bg-white rounded shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Media & Settings</h2>
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('mediaAndSettings')}</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Images */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
-                  Images (JSON array of filenames)
+                  {t('imagesLabel')}
                 </label>
                 <textarea
                   rows={3}
                   value={form.images}
                   onChange={(e) => updateField('images', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
-                  placeholder='["image1.jpg", "image2.jpg"]'
+                  placeholder={t('imagesPlaceholder')}
                 />
               </div>
 
               {/* Category */}
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Category</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('categories')}</label>
                 <select
                   value={form.categoryId}
                   onChange={(e) => updateField('categoryId', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
                 >
-                  <option value="">-- No category --</option>
+                  <option value="">{t('noCategory')}</option>
                   {categories.map((cat) => (
                     <option key={cat.id} value={cat.id}>
                       {cat.nameZh} / {cat.nameEn} / {cat.nameDe}
@@ -396,7 +398,7 @@ export default function EditProductPage() {
 
               {/* Order */}
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Order</label>
+                <label className="block text-sm font-medium text-gray-600 mb-1">{t('order')}</label>
                 <input
                   type="number"
                   value={form.order}
@@ -414,7 +416,7 @@ export default function EditProductPage() {
                     onChange={(e) => updateField('featured', e.target.checked)}
                     className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
-                  <span className="text-sm font-medium text-gray-600">Featured product</span>
+                  <span className="text-sm font-medium text-gray-600">{t('featuredProduct')}</span>
                 </label>
 
                 <label className="flex items-center gap-3 cursor-pointer">
@@ -424,7 +426,7 @@ export default function EditProductPage() {
                     onChange={(e) => updateField('published', e.target.checked)}
                     className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
-                  <span className="text-sm font-medium text-gray-600">Published</span>
+                  <span className="text-sm font-medium text-gray-600">{t('published')}</span>
                 </label>
               </div>
             </div>
@@ -437,14 +439,14 @@ export default function EditProductPage() {
               onClick={() => router.back()}
               className="px-5 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded hover:bg-gray-50 transition-colors"
             >
-              Cancel
+              {t('cancel')}
             </button>
             <button
               type="submit"
               disabled={saving}
               className="px-6 py-2.5 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {saving ? 'Saving...' : 'Save Changes'}
+              {saving ? t('saving') : t('saveChanges')}
             </button>
           </div>
         </form>

@@ -2,10 +2,12 @@
 
 import { useState, FormEvent } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function AdminLoginPage() {
   const params = useParams();
   const router = useRouter();
+  const t = useTranslations('admin');
   const locale = (params.locale as string) || 'zh';
 
   const [username, setUsername] = useState('');
@@ -18,7 +20,7 @@ export default function AdminLoginPage() {
     setError('');
 
     if (!username.trim() || !password.trim()) {
-      setError('请输入用户名和密码');
+      setError(t('validationEmpty'));
       return;
     }
 
@@ -34,7 +36,7 @@ export default function AdminLoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || data.error || '登录失败');
+        setError(data.message || data.error || t('loginFailed'));
         return;
       }
 
@@ -45,7 +47,7 @@ export default function AdminLoginPage() {
 
       router.push(`/${locale}/admin`);
     } catch {
-      setError('网络错误，请稍后重试');
+      setError(t('networkError'));
     } finally {
       setLoading(false);
     }
@@ -56,14 +58,14 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md">
         {/* Branding */}
         <div className="text-center mb-10">
-          <img src="/logo.jpeg" alt="品仕高 PINSHIGAO" className="h-28 mx-auto mb-3" />
-          <p className="text-sm text-[#999]">品仕高五金后台管理</p>
+          <img src="/logo.jpeg" alt={t('login')} className="h-28 mx-auto mb-3" />
+          <p className="text-sm text-[#999]">{t('loginSubtitle')}</p>
         </div>
 
         {/* Login Card */}
         <div className="bg-white rounded-xl shadow-sm border border-[#e8e8e8] p-8">
           <h2 className="text-xl font-semibold text-[#1a3a5c] mb-6 text-center">
-            管理员登录
+            {t('login')}
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -73,14 +75,14 @@ export default function AdminLoginPage() {
                 htmlFor="username"
                 className="block text-sm font-medium text-[#666] mb-1.5"
               >
-                用户名
+                {t('username')}
               </label>
               <input
                 id="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="请输入用户名"
+                placeholder={t('username')}
                 autoComplete="username"
                 disabled={loading}
                 className="w-full px-4 py-2.5 rounded-lg border border-[#e8e8e8] bg-white text-[#1a1a1a] placeholder:text-[#bbb] outline-none transition-colors focus:border-[#c8a96e] focus:ring-2 focus:ring-[#c8a96e]/20 disabled:opacity-50"
@@ -93,14 +95,14 @@ export default function AdminLoginPage() {
                 htmlFor="password"
                 className="block text-sm font-medium text-[#666] mb-1.5"
               >
-                密码
+                {t('password')}
               </label>
               <input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="请输入密码"
+                placeholder={t('password')}
                 autoComplete="current-password"
                 disabled={loading}
                 className="w-full px-4 py-2.5 rounded-lg border border-[#e8e8e8] bg-white text-[#1a1a1a] placeholder:text-[#bbb] outline-none transition-colors focus:border-[#c8a96e] focus:ring-2 focus:ring-[#c8a96e]/20 disabled:opacity-50"
@@ -120,7 +122,7 @@ export default function AdminLoginPage() {
               disabled={loading}
               className="w-full py-2.5 rounded-lg bg-[#1a3a5c] text-white font-medium text-sm transition-colors hover:bg-[#0f2640] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? '登录中...' : '登 录'}
+              {loading ? t('loading') : t('loginBtn')}
             </button>
           </form>
         </div>

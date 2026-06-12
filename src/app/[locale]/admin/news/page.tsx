@@ -411,7 +411,7 @@ export default function AdminNewsPage() {
                         <td className="px-4 py-3 text-right">
                           <div className="flex items-center justify-end gap-1">
                             <Link
-                              href={`/${locale}/admin/news/edit/${article.id}`}
+                              href={`/${locale}/admin/news/edit/${article.slug}`}
                               className="inline-flex items-center gap-1 px-3 py-1.5 text-xs rounded-sm text-[var(--color-text-secondary)]
                                 hover:text-[#1a3a5c] hover:bg-blue-50 transition-colors"
                             >

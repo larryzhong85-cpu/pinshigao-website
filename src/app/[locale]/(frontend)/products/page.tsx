@@ -1,36 +1,25 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
-interface CategoryConfig {
+interface ApiCategory {
+  id: number;
+  nameZh: string;
+  nameEn: string;
+  nameDe: string;
   slug: string;
-  image: string;
+  image: string | null;
+  order: number;
+  _count: { products: number };
 }
 
-const categories: CategoryConfig[] = [
-  {
-    slug: 'hinges',
-    image: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=600&q=80',
-  },
-  {
-    slug: 'drawers',
-    image: 'https://images.unsplash.com/photo-1600481176191-2a2d60e8a767?w=600&q=80',
-  },
-  {
-    slug: 'lifts',
-    image: 'https://images.unsplash.com/photo-1600566753086-00f18b4f6b7f?w=600&q=80',
-  },
-  {
-    slug: 'slides',
-    image: 'https://images.unsplash.com/photo-1599658880434-8c0f021c0b3a?w=600&q=80',
-  },
-  {
-    slug: 'handles',
-    image: 'https://images.unsplash.com/photo-1600607687644-c3f4e4f8d59b?w=600&q=80',
-  },
-];
+type LocaleNameKey = 'nameZh' | 'nameEn' | 'nameDe';
+
+const DEFAULT_CATEGORY_IMAGE =
+  'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=600&q=80';
 
 const featuredProducts = [
   { key: 'hinge', slug: 'psg-pro-damped-hinge' },
@@ -41,6 +30,27 @@ export default function ProductsPage() {
   const params = useParams<{ locale: string }>();
   const locale = params.locale;
   const t = useTranslations('products');
+  const tCommon = useTranslations('common');
+
+  const [categories, setCategories] = useState<ApiCategory[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('/api/categories')
+      .then((res) => {
+        if (!res.ok) throw new Error(tCommon('error'));
+        return res.json();
+      })
+      .then((data: ApiCategory[]) => setCategories(data))
+      .catch((err: Error) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, [tCommon]);
+
+  const localeNameKey: LocaleNameKey =
+    locale === 'zh' ? 'nameZh' : locale === 'de' ? 'nameDe' : 'nameEn';
+
+  const getLocalizedName = (cat: ApiCategory): string => cat[localeNameKey];
 
   return (
     <div className="min-h-screen bg-white">
@@ -60,38 +70,56 @@ export default function ProductsPage() {
 
       {/* ========== Category Grid ========== */}
       <section className="max-w-[1280px] mx-auto px-6 py-16 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-          {categories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/${locale}/products/${cat.slug}`}
-              className="group block"
-            >
-              {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                <img
-                  src={cat.image}
-                  alt={t(`categories.${cat.slug}.name`)}
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-[#1a3a5c]/0 group-hover:bg-[#1a3a5c]/10 transition-colors duration-300" />
-              </div>
+        {loading && (
+          <div className="flex items-center justify-center py-20">
+            <span className="text-gray-500 text-lg">{tCommon('loading')}</span>
+          </div>
+        )}
 
-              {/* Info */}
-              <div className="mt-5">
-                <span className="inline-block text-xs font-medium text-[#c8a96e] tracking-[0.15em] uppercase">
-                  {t(`categories.${cat.slug}.series`)}
-                </span>
-                <h3 className="text-lg md:text-xl font-bold text-[#1a3a5c] mt-1 group-hover:text-[#c8a96e] transition-colors">
-                  {t(`categories.${cat.slug}.name`)}
-                </h3>
-                <p className="text-gray-500 text-sm mt-2 leading-relaxed line-clamp-2">
-                  {t(`categories.${cat.slug}.desc`)}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {error && (
+          <div className="flex items-center justify-center py-20">
+            <span className="text-red-500 text-lg">{error}</span>
+          </div>
+        )}
+
+        {!loading && !error && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            {categories.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/${locale}/products/${cat.slug}`}
+                className="group block"
+              >
+                {/* Image */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                  <img
+                    src={cat.image || DEFAULT_CATEGORY_IMAGE}
+                    alt={getLocalizedName(cat)}
+                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-[#1a3a5c]/0 group-hover:bg-[#1a3a5c]/10 transition-colors duration-300" />
+                </div>
+
+                {/* Info */}
+                <div className="mt-5">
+                  {t.has(`categories.${cat.slug}.series`) && (
+                    <span className="inline-block text-xs font-medium text-[#c8a96e] tracking-[0.15em] uppercase">
+                      {t(`categories.${cat.slug}.series`)}
+                    </span>
+                  )}
+                  <h3 className="text-lg md:text-xl font-bold text-[#1a3a5c] mt-1 group-hover:text-[#c8a96e] transition-colors">
+                    {getLocalizedName(cat)}
+                  </h3>
+                  {t.has(`categories.${cat.slug}.desc`) && (
+                    <p className="text-gray-500 text-sm mt-2 leading-relaxed line-clamp-2">
+                      {t(`categories.${cat.slug}.desc`)}
+                    </p>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* ========== Featured Products ========== */}

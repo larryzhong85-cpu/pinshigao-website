@@ -1,5 +1,6 @@
 'use client';
 import AdminLayout from '@/components/AdminLayout';
+import { useTranslations } from 'next-intl';
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
@@ -30,6 +31,7 @@ export default function EditNewsPage() {
   const params = useParams<{ locale: string; slug: string }>();
   const locale = params.locale;
   const slug = params.slug;
+  const t = useTranslations('admin');
 
   /* form state */
   const [titleZh, setTitleZh] = useState('');
@@ -64,7 +66,7 @@ export default function EditNewsPage() {
           setLoading(false);
           return null;
         }
-        if (!res.ok) throw new Error('Failed to fetch article');
+        if (!res.ok) throw new Error(t('failedToLoadArticle'));
         return res.json();
       })
       .then((data: NewsArticle | null) => {
@@ -83,7 +85,7 @@ export default function EditNewsPage() {
         setPublished(data.published);
       })
       .catch((err: unknown) => {
-        setError(err instanceof Error ? err.message : 'Failed to load article');
+        setError(err instanceof Error ? err.message : t('failedToLoadArticle'));
       })
       .finally(() => setLoading(false));
   }, [slug]);
@@ -108,13 +110,13 @@ export default function EditNewsPage() {
 
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || 'Upload failed');
+        throw new Error(errData.error || t('uploadFailed'));
       }
 
       const data = await res.json();
       setImage(data.filename);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Upload failed');
+      setError(err instanceof Error ? err.message : t('uploadFailed'));
     } finally {
       setUploading(false);
       e.target.value = '';
@@ -152,12 +154,12 @@ export default function EditNewsPage() {
 
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || 'Failed to update article');
+        throw new Error(errData.error || t('failedToUpdateArticle'));
       }
 
       router.push(`/${locale}/admin/news`);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to update article');
+      setError(err instanceof Error ? err.message : t('failedToUpdateArticle'));
     } finally {
       setSubmitting(false);
     }
@@ -177,7 +179,7 @@ export default function EditNewsPage() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="flex items-center justify-center py-20">
-          <div className="text-gray-400 text-sm">Loading article...</div>
+          <div className="text-gray-400 text-sm">{t('loadingArticle')}</div>
         </div>
       </div>
     );
@@ -187,16 +189,16 @@ export default function EditNewsPage() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="text-center py-20">
-          <h1 className="text-xl font-semibold text-gray-700 mb-2">Article Not Found</h1>
+          <h1 className="text-xl font-semibold text-gray-700 mb-2">{t('articleNotFound')}</h1>
           <p className="text-gray-400 text-sm mb-6">
-            The news article with slug &quot;{slug}&quot; does not exist.
+            {t('articleNotFoundDesc', { slug })}
           </p>
           <button
             type="button"
             onClick={() => router.push(`/${locale}/admin/news`)}
             className="px-4 py-2 bg-primary text-white text-sm font-medium rounded hover:bg-primary-dark transition-colors"
           >
-            &larr; Back to News
+            &larr; {t('backToNews')}
           </button>
         </div>
       </div>
@@ -208,13 +210,13 @@ export default function EditNewsPage() {
   return (<AdminLayout>
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-primary">Edit News Article</h1>
+        <h1 className="text-2xl font-bold text-primary">{t('editNewsArticle')}</h1>
         <button
           type="button"
           onClick={() => router.push(`/${locale}/admin/news`)}
           className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
         >
-          &larr; Back
+          &larr; {t('back')}
         </button>
       </div>
 
@@ -227,11 +229,11 @@ export default function EditNewsPage() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* ---- Titles ---- */}
         <div>
-          <h2 className={sectionTitle}>Titles</h2>
+          <h2 className={sectionTitle}>{t('titles')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className={labelClass}>
-                Title (ZH) <span className="text-red-500">*</span>
+                {t('titleLabel')} (ZH) <span className="text-red-500">*</span>
               </label>
               <input
                 className={inputClass}
@@ -242,7 +244,7 @@ export default function EditNewsPage() {
             </div>
             <div>
               <label className={labelClass}>
-                Title (EN) <span className="text-red-500">*</span>
+                {t('titleLabel')} (EN) <span className="text-red-500">*</span>
               </label>
               <input
                 className={inputClass}
@@ -253,7 +255,7 @@ export default function EditNewsPage() {
             </div>
             <div>
               <label className={labelClass}>
-                Title (DE) <span className="text-red-500">*</span>
+                {t('titleLabel')} (DE) <span className="text-red-500">*</span>
               </label>
               <input
                 className={inputClass}
@@ -267,10 +269,10 @@ export default function EditNewsPage() {
 
         {/* ---- Summaries ---- */}
         <div>
-          <h2 className={sectionTitle}>Summaries</h2>
+          <h2 className={sectionTitle}>{t('summaries')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className={labelClass}>Summary (ZH)</label>
+              <label className={labelClass}>{t('summaryLabel')} (ZH)</label>
               <textarea
                 className={`${inputClass} resize-y min-h-[80px]`}
                 value={summaryZh}
@@ -278,7 +280,7 @@ export default function EditNewsPage() {
               />
             </div>
             <div>
-              <label className={labelClass}>Summary (EN)</label>
+              <label className={labelClass}>{t('summaryLabel')} (EN)</label>
               <textarea
                 className={`${inputClass} resize-y min-h-[80px]`}
                 value={summaryEn}
@@ -286,7 +288,7 @@ export default function EditNewsPage() {
               />
             </div>
             <div>
-              <label className={labelClass}>Summary (DE)</label>
+              <label className={labelClass}>{t('summaryLabel')} (DE)</label>
               <textarea
                 className={`${inputClass} resize-y min-h-[80px]`}
                 value={summaryDe}
@@ -298,10 +300,10 @@ export default function EditNewsPage() {
 
         {/* ---- Content ---- */}
         <div>
-          <h2 className={sectionTitle}>Content</h2>
+          <h2 className={sectionTitle}>{t('content')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className={labelClass}>Content (ZH)</label>
+              <label className={labelClass}>{t('content')} (ZH)</label>
               <textarea
                 className={`${inputClass} resize-y min-h-[200px] font-mono text-xs leading-relaxed`}
                 value={contentZh}
@@ -309,7 +311,7 @@ export default function EditNewsPage() {
               />
             </div>
             <div>
-              <label className={labelClass}>Content (EN)</label>
+              <label className={labelClass}>{t('content')} (EN)</label>
               <textarea
                 className={`${inputClass} resize-y min-h-[200px] font-mono text-xs leading-relaxed`}
                 value={contentEn}
@@ -317,7 +319,7 @@ export default function EditNewsPage() {
               />
             </div>
             <div>
-              <label className={labelClass}>Content (DE)</label>
+              <label className={labelClass}>{t('content')} (DE)</label>
               <textarea
                 className={`${inputClass} resize-y min-h-[200px] font-mono text-xs leading-relaxed`}
                 value={contentDe}
@@ -329,10 +331,10 @@ export default function EditNewsPage() {
 
         {/* ---- Settings ---- */}
         <div>
-          <h2 className={sectionTitle}>Settings</h2>
+          <h2 className={sectionTitle}>{t('settings')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className={labelClass}>Date</label>
+              <label className={labelClass}>{t('date')}</label>
               <input
                 type="date"
                 className={inputClass}
@@ -349,7 +351,7 @@ export default function EditNewsPage() {
                   onChange={(e) => setPublished(e.target.checked)}
                   className="w-4 h-4 rounded border-gray-300 text-accent focus:ring-accent"
                 />
-                <span className="text-sm font-medium text-gray-700">Published</span>
+                <span className="text-sm font-medium text-gray-700">{t('published')}</span>
               </label>
             </div>
           </div>
@@ -357,10 +359,10 @@ export default function EditNewsPage() {
 
         {/* ---- Image ---- */}
         <div>
-          <h2 className={sectionTitle}>Featured Image</h2>
+          <h2 className={sectionTitle}>{t('featuredImage')}</h2>
           <div className="mb-3">
             <label className="inline-block cursor-pointer px-4 py-2 bg-gray-100 border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-200 transition-colors">
-              {uploading ? 'Uploading...' : 'Choose file'}
+              {uploading ? t('uploading') : t('chooseFile')}
               <input
                 type="file"
                 accept="image/*"
@@ -388,7 +390,7 @@ export default function EditNewsPage() {
               </button>
             </div>
           ) : (
-            <p className="text-xs text-gray-400">No image selected.</p>
+            <p className="text-xs text-gray-400">{t('noImageSelected')}</p>
           )}
         </div>
 
@@ -400,7 +402,7 @@ export default function EditNewsPage() {
             className="px-6 py-2.5 bg-primary text-white text-sm font-medium rounded hover:bg-primary-dark
               transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? 'Saving...' : 'Save Changes'}
+            {submitting ? t('saving') : t('saveChanges')}
           </button>
         </div>
       </form>

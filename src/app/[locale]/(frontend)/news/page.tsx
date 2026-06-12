@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -11,109 +11,13 @@ interface NewsItem {
   slug: string;
   image: string;
   date: string;
-  title: Record<string, string>;
-  summary: Record<string, string>;
+  titleZh?: string;
+  titleEn?: string;
+  titleDe?: string;
+  summaryZh?: string;
+  summaryEn?: string;
+  summaryDe?: string;
 }
-
-// ---------- Static demo data ----------
-const newsData: NewsItem[] = [
-  {
-    id: '1',
-    slug: 'china-furniture-fair-2024',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80',
-    date: '2024.12.15',
-    title: {
-      zh: '品仕高亮相2024中国国际家具展',
-      en: 'PINSHIGAO at China International Furniture Fair 2024',
-      de: 'PINSHIGAO auf der China International Furniture Fair 2024',
-    },
-    summary: {
-      zh: '全新PSG-Pro系列产品首次公开亮相，获行业专家高度评价。',
-      en: 'The new PSG-Pro series debuted publicly, receiving high praise from industry experts.',
-      de: 'Die neue PSG-Pro Serie feierte ihr öffentliches Debüt und erhielt hohe Anerkennung von Branchenexperten.',
-    },
-  },
-  {
-    id: '2',
-    slug: 'servo-drive-lift-system-launch',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
-    date: '2024.11.08',
-    title: {
-      zh: '全新伺服驱动上翻门系统发布',
-      en: 'New Servo-Drive Lift System Launched',
-      de: 'Neues Servoantrieb-Klappensystem eingeführt',
-    },
-    summary: {
-      zh: '触控开启，智能停止，为智能家居提供完美五金解决方案。',
-      en: 'Touch-open, intelligent stop — the perfect hardware solution for smart homes.',
-      de: 'Berührungsöffnung, intelligenter Stopp — die perfekte Beschlaglösung für Smart Homes.',
-    },
-  },
-  {
-    id: '3',
-    slug: 'foshan-smart-factory-phase2',
-    image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600&q=80',
-    date: '2024.10.20',
-    title: {
-      zh: '佛山智能制造基地二期投产',
-      en: 'Phase II of Foshan Smart Factory Begins Production',
-      de: 'Phase II der Smart Factory in Foshan startet Produktion',
-    },
-    summary: {
-      zh: '年产能提升至5000万件，引入全自动装配线，品质再升级。',
-      en: 'Annual capacity increased to 50 million units with new fully automated assembly lines.',
-      de: 'Jahreskapazität auf 50 Millionen Einheiten erhöht, vollautomatisierte Montagelinien.',
-    },
-  },
-  {
-    id: '4',
-    slug: 'germany-design-award-2024',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80',
-    date: '2024.09.05',
-    title: {
-      zh: '品仕高荣获德国设计奖',
-      en: 'PINSHIGAO Wins German Design Award',
-      de: 'PINSHIGAO gewinnt German Design Award',
-    },
-    summary: {
-      zh: 'PSG-Sleek抽屉系统凭借创新设计与卓越品质，荣获2024德国设计奖特别表彰。',
-      en: 'The PSG-Sleek drawer system won special recognition at the 2024 German Design Award for its innovative design and卓越 quality.',
-      de: 'Das PSG-Sleek Schubladensystem erhielt eine besondere Anerkennung beim German Design Award 2024 für sein innovatives Design und seine herausragende Qualität.',
-    },
-  },
-  {
-    id: '5',
-    slug: 'new-showroom-shanghai',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80',
-    date: '2024.07.18',
-    title: {
-      zh: '品仕高上海旗舰展厅开幕',
-      en: 'PINSHIGAO Shanghai Flagship Showroom Opens',
-      de: 'PINSHIGAO eröffnet Flagship-Showroom in Shanghai',
-    },
-    summary: {
-      zh: '全新沉浸式体验展厅正式对外开放，全方位展示全系列家具五金产品与应用方案。',
-      en: 'A new immersive experience showroom is now open, showcasing the full range of furniture hardware products and application solutions.',
-      de: 'Ein neuer immersiver Erlebnis-Showroom ist jetzt geöffnet und präsentiert das gesamte Sortiment an Möbelbeschlägen und Anwendungslösungen.',
-    },
-  },
-  {
-    id: '6',
-    slug: 'smart-home-hardware-partnership',
-    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80',
-    date: '2024.05.22',
-    title: {
-      zh: '品仕高与华为智慧家居达成战略合作',
-      en: 'PINSHIGAO Partners with Huawei Smart Home',
-      de: 'PINSHIGAO schließt strategische Partnerschaft mit Huawei Smart Home',
-    },
-    summary: {
-      zh: '双方将共同开发智能五金解决方案，推动家居智能化升级。',
-      en: 'Both parties will jointly develop smart hardware solutions to drive home intelligence upgrades.',
-      de: 'Beide Parteien werden gemeinsam intelligente Beschlaglösungen entwickeln, um die Hausautomation voranzutreiben.',
-    },
-  },
-];
 
 const ITEMS_PER_PAGE = 6;
 
@@ -127,22 +31,61 @@ function fallbackImg(index: number): string {
   return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect fill='${encodeURIComponent(colors[index % colors.length])}' width='800' height='450'/%3E%3Ctext x='400' y='230' font-family='sans-serif' font-size='28' fill='rgba(255,255,255,0.4)' text-anchor='middle'%3ENEWS%3C/text%3E%3C/svg%3E`;
 }
 
+function localizedValue(
+  item: NewsItem,
+  locale: string,
+  field: 'title' | 'summary',
+): string {
+  const key = `${field}${locale.charAt(0).toUpperCase() + locale.slice(1)}` as keyof NewsItem;
+  const value = item[key];
+  if (typeof value === 'string' && value) return value;
+  // Fallback to English
+  const enKey = `${field}En` as keyof NewsItem;
+  const enValue = item[enKey];
+  if (typeof enValue === 'string' && enValue) return enValue;
+  return '';
+}
+
 // ---------- Component ----------
 export default function NewsPage() {
   const t = useTranslations('common');
   const pathname = usePathname();
   const locale = getLocale(pathname);
 
+  const [newsData, setNewsData] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetch('/api/news');
+        if (!res.ok) {
+          throw new Error(`Failed to fetch news: ${res.status}`);
+        }
+        const data: NewsItem[] = await res.json();
+        setNewsData(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchNews();
+  }, []);
+
   const totalPages = Math.ceil(newsData.length / ITEMS_PER_PAGE);
 
-  const currentItems = useMemo(
-    () => newsData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE),
-    [currentPage],
+  const currentItems = newsData.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
   );
 
   // Build page-number array for display
-  const pageNumbers = useMemo(() => {
+  const pageNumbers = (() => {
     const pages: (number | 'ellipsis')[] = [];
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
@@ -156,7 +99,7 @@ export default function NewsPage() {
       pages.push(totalPages);
     }
     return pages;
-  }, [currentPage, totalPages]);
+  })();
 
   function goToPage(page: number) {
     if (page >= 1 && page <= totalPages) {
@@ -210,7 +153,22 @@ export default function NewsPage() {
       {/* ============= NEWS GRID ============= */}
       <section className="bg-white py-16 md:py-24">
         <div className="max-w-[1280px] mx-auto px-6">
-          {currentItems.length > 0 ? (
+          {loading ? (
+            /* Loading spinner */
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="w-10 h-10 border-4 border-[#c8a96e]/30 border-t-[#c8a96e] rounded-full animate-spin" />
+              <p className="mt-4 text-sm text-[var(--color-text-secondary)]">{t('loading')}</p>
+            </div>
+          ) : error ? (
+            /* Error state */
+            <div className="text-center py-20">
+              <div className="text-6xl text-red-200 mb-6">
+                <i className="fa-regular fa-circle-exclamation" />
+              </div>
+              <p className="text-lg text-red-500 mb-2">{t('error')}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">{error}</p>
+            </div>
+          ) : currentItems.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {currentItems.map((item, idx) => (
                 <article
@@ -226,7 +184,7 @@ export default function NewsPage() {
                   >
                     <img
                       src={item.image}
-                      alt={item.title[locale] || item.title.en}
+                      alt={localizedValue(item, locale, 'title')}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).src = fallbackImg(idx);
@@ -246,13 +204,13 @@ export default function NewsPage() {
                     <h2 className="text-lg font-semibold text-[var(--color-text)] mb-3 leading-snug
                       transition-colors duration-300 group-hover:text-[#1a3a5c]">
                       <Link href={`/${locale}/news/${item.slug}`}>
-                        {item.title[locale] || item.title.en}
+                        {localizedValue(item, locale, 'title')}
                       </Link>
                     </h2>
 
                     {/* Summary */}
                     <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-5 flex-1">
-                      {item.summary[locale] || item.summary.en}
+                      {localizedValue(item, locale, 'summary')}
                     </p>
 
                     {/* Read More */}
@@ -281,7 +239,7 @@ export default function NewsPage() {
       </section>
 
       {/* ============= PAGINATION ============= */}
-      {totalPages > 1 && (
+      {!loading && !error && totalPages > 1 && (
         <section className="bg-white pb-16 md:pb-24">
           <div className="max-w-[1280px] mx-auto px-6">
             <nav className="flex items-center justify-center gap-1.5" aria-label="Pagination">
