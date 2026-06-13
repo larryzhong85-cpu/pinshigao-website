@@ -66,8 +66,9 @@ export default function NewsPage() {
         if (!res.ok) {
           throw new Error(`Failed to fetch news: ${res.status}`);
         }
-        const data: NewsItem[] = await res.json();
-        setNewsData(data);
+        const rawData = await res.json();
+        const items = Array.isArray(rawData) ? rawData : (rawData?.items ?? []);
+        setNewsData(items);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       } finally {
