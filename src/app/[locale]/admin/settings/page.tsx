@@ -40,6 +40,7 @@ export default function AdminSettingsPage() {
     contactEmail: '',
     contactPhone: '',
     contactAddress: '',
+    contactHours: '',
     copyright: '',
     footerAbout: '',
   });
