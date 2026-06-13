@@ -1,8 +1,20 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
+
+interface PageData {
+  id: number;
+  slug: string;
+  titleZh: string;
+  titleEn: string;
+  titleDe: string;
+  contentZh: string;
+  contentEn: string;
+  contentDe: string;
+}
 
 const milestones = [
   { year: '2004', zh: '公司成立于广东佛山', en: 'Company founded in Foshan, Guangdong', de: 'Gründung in Foshan, Guangdong' },
@@ -66,12 +78,33 @@ export default function AboutPage() {
   }, [pathname]);
 
   const t = useTranslations('about');
+  const [pageData, setPageData] = useState<PageData | null>(null);
+
+  useEffect(() => {
+    fetch('/api/pages')
+      .then(res => res.json())
+      .then((data: PageData[]) => {
+        const about = Array.isArray(data) ? data.find((p: PageData) => p.slug === 'about') : null;
+        if (about) setPageData(about);
+      })
+      .catch(() => {});
+  }, []);
 
   const heroTitle: Record<string, string> = {
     zh: '关于品仕高',
     en: 'About PINSHIGAO',
     de: 'über PINSHIGAO',
   };
+
+  // Get content from pageData if available, fallback to translation
+  const pageContent = (field: 'title' | 'content') => {
+    if (!pageData) return null;
+    const key = `${field}${locale.charAt(0).toUpperCase() + locale.slice(1)}` as keyof PageData;
+    return (pageData[key] as string) || null;
+  };
+
+  const dynamicTitle = pageContent('title');
+  const dynamicContent = pageContent('content');
 
   return (
     <div className="min-h-screen bg-white">
@@ -84,14 +117,14 @@ export default function AboutPage() {
         <div className="relative max-w-[1280px] mx-auto px-6 py-24 md:py-32">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              {heroTitle[locale]}
+              {dynamicTitle || heroTitle[locale]}
               <span className="block mt-2 text-xl md:text-2xl lg:text-3xl font-normal text-[#c8a96e]">
                 {t('subtitle')}
               </span>
             </h1>
             <div className="w-16 h-1 bg-[#c8a96e] mb-6" />
             <p className="text-white/70 text-base md:text-lg leading-relaxed max-w-xl">
-              {t('intro')}
+              {dynamicContent || t('intro')}
             </p>
           </div>
         </div>
@@ -109,10 +142,10 @@ export default function AboutPage() {
                 {locale === 'zh' ? '公司简介' : locale === 'de' ? 'Unternehmensprofil' : 'Company Profile'}
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a3a5c] mt-3 mb-6 leading-tight">
-                {t('title')}
+                {dynamicTitle || t('title')}
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
-                {t('intro')}
+                {dynamicContent || t('intro')}
               </p>
               <p className="text-gray-600 leading-relaxed">
                 {t('mission')}
