@@ -250,8 +250,6 @@
     "quickActions": "Quick Actions",
     "addProduct": "Add Product",
     "addNews": "Add News",
-    "manageMedia": "Manage Media",
-    "managePages": "Manage Pages",
     "siteSettings": "Site Settings",
     "viewSite": "View Site",
     "recentActivity": "Recent Activity",
@@ -280,7 +278,6 @@
     "deleting": "Deleting...",
     "deleteCategoryWarning": "This action cannot be undone. Make sure no products are in this category.",
     "displayOrder": "Display Order",
-    "editCategory": "Edit Category",
     "noCategories": "No categories yet",
     "noPages": "No pages yet",
     "noSearchResults": "No matching results",
@@ -289,7 +286,6 @@
     "loading": "Loading...",
     "imageUrl": "Image URL",
     "imageUrlPlaceholder": "Enter image URL or upload image",
-    "slug": "Slug",
     "slugHint": "Unique URL identifier, e.g.: hinge-series",
     "slugPlaceholder": "Enter URL slug",
     "nameZh": "Chinese Name",
@@ -299,7 +295,6 @@
     "nameDe": "German Name",
     "nameDePlaceholder": "Enter German name",
     "products": "Products",
-    "published": "Published",
     "managePagesDesc": "Manage static page content",
     "editNewsArticle": "Edit News Article",
     "loadingArticle": "Loading...",
@@ -359,7 +354,17 @@
     "uploadFailed": "Upload failed",
     "createProductFailed": "Failed to create product",
     "toggleFailed": "Toggle failed",
-    "copyright": "Copyright"
+    "copyright": "Copyright",
+    "back": "Back",
+    "date": "Date",
+    "failedToLoadArticle": "Failed to load article",
+    "failedToUpdateArticle": "Failed to update article",
+    "featuredImage": "Featured Image",
+    "footerAbout": "Footer About Us",
+    "noImageSelected": "No image selected",
+    "settings": "Settings",
+    "summaryLabel": "Summary",
+    "titleLabel": "Title"
   },
   "contact": {
     "title": "Contact Us",
@@ -387,18 +392,48 @@
     "values": "Quality · Innovation · Service",
     "history": "Our History",
     "milestones": [
-      {"year": "2004", "event": "Company founded in Foshan, Guangdong"},
-      {"year": "2008", "event": "ISO9001 Quality Management Certification"},
-      {"year": "2012", "event": "First automated production line established"},
-      {"year": "2016", "event": "Products exported to 30 countries"},
-      {"year": "2020", "event": "Phase I of Foshan Smart Factory launched"},
-      {"year": "2024", "event": "2,000+ global clients, 50M annual capacity"}
+      {
+        "year": "2004",
+        "event": "Company founded in Foshan, Guangdong"
+      },
+      {
+        "year": "2008",
+        "event": "ISO9001 Quality Management Certification"
+      },
+      {
+        "year": "2012",
+        "event": "First automated production line established"
+      },
+      {
+        "year": "2016",
+        "event": "Products exported to 30 countries"
+      },
+      {
+        "year": "2020",
+        "event": "Phase I of Foshan Smart Factory launched"
+      },
+      {
+        "year": "2024",
+        "event": "2,000+ global clients, 50M annual capacity"
+      }
     ],
     "stats": [
-      {"value": "2,000+", "label": "Global Clients"},
-      {"value": "50+", "label": "Export Countries"},
-      {"value": "50M", "label": "Annual Capacity"},
-      {"value": "20", "label": "Years of Expertise"}
+      {
+        "value": "2,000+",
+        "label": "Global Clients"
+      },
+      {
+        "value": "50+",
+        "label": "Export Countries"
+      },
+      {
+        "value": "50M",
+        "label": "Annual Capacity"
+      },
+      {
+        "value": "20",
+        "label": "Years of Expertise"
+      }
     ]
   },
   "solutionsPage": {

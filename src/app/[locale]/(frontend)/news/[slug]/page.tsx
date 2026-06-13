@@ -88,7 +88,7 @@ export default function NewsDetailPage() {
   const titleKey = `title${locale.charAt(0).toUpperCase() + locale.slice(1)}` as keyof Article;
   const contentKey = `content${locale.charAt(0).toUpperCase() + locale.slice(1)}` as keyof Article;
   const localizedTitle = (article[titleKey] as string) || article.titleEn;
-  const localizedContent = (article[contentKey] as string) || article.contentEn;
+  const localizedContent = (article[contentKey] as string) || article.contentEn || '';
 
   return (
     <div className="min-h-screen bg-white">

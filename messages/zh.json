@@ -353,7 +353,16 @@
     "retry": "重试",
     "viewSite": "查看网站",
     "copyright": "版权信息",
-    "noCategory": "无分类"
+    "back": "返回",
+    "date": "日期",
+    "failedToLoadArticle": "加载文章失败",
+    "failedToUpdateArticle": "更新文章失败",
+    "featuredImage": "特色图片",
+    "footerAbout": "页脚关于我们",
+    "noImageSelected": "未选择图片",
+    "settings": "设置",
+    "summaryLabel": "摘要",
+    "titleLabel": "标题"
   },
   "contact": {
     "title": "联系我们",
@@ -381,18 +390,48 @@
     "values": "品质 · 创新 · 服务",
     "history": "发展历程",
     "milestones": [
-      {"year": "2004", "event": "公司成立于广东佛山"},
-      {"year": "2008", "event": "通过ISO9001质量管理体系认证"},
-      {"year": "2012", "event": "建立首个自动化生产线"},
-      {"year": "2016", "event": "产品出口至全球30个国家"},
-      {"year": "2020", "event": "佛山智能制造基地一期投产"},
-      {"year": "2024", "event": "全球客户超2000家，年产能突破5000万件"}
+      {
+        "year": "2004",
+        "event": "公司成立于广东佛山"
+      },
+      {
+        "year": "2008",
+        "event": "通过ISO9001质量管理体系认证"
+      },
+      {
+        "year": "2012",
+        "event": "建立首个自动化生产线"
+      },
+      {
+        "year": "2016",
+        "event": "产品出口至全球30个国家"
+      },
+      {
+        "year": "2020",
+        "event": "佛山智能制造基地一期投产"
+      },
+      {
+        "year": "2024",
+        "event": "全球客户超2000家，年产能突破5000万件"
+      }
     ],
     "stats": [
-      {"value": "2000+", "label": "全球客户"},
-      {"value": "50+", "label": "出口国家"},
-      {"value": "5000万", "label": "年产能(件)"},
-      {"value": "20年", "label": "行业经验"}
+      {
+        "value": "2000+",
+        "label": "全球客户"
+      },
+      {
+        "value": "50+",
+        "label": "出口国家"
+      },
+      {
+        "value": "5000万",
+        "label": "年产能(件)"
+      },
+      {
+        "value": "20年",
+        "label": "行业经验"
+      }
     ]
   },
   "solutionsPage": {

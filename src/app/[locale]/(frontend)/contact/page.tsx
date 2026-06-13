@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 
@@ -26,6 +26,22 @@ export default function ContactPage() {
 
   const [form, setForm] = useState<FormData>(initialForm);
   const [submitted, setSubmitted] = useState(false);
+  const [settings, setSettings] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    fetch('/api/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const map: Record<string, string> = {};
+          data.forEach((item: { key: string; value: string }) => {
+            map[item.key] = item.value ?? '';
+          });
+          setSettings(map);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = e.target;
@@ -171,7 +187,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 mb-0.5">{t('info.address')}</p>
-                    <p className="text-sm font-medium text-gray-800">{common('addressFull')}</p>
+                    <p className="text-sm font-medium text-gray-800">{settings.contactAddress || common('addressFull')}</p>
                   </div>
                 </div>
 
@@ -184,7 +200,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 mb-0.5">{t('info.phone')}</p>
-                    <p className="text-sm font-medium text-gray-800">{common('phone')}</p>
+                    <p className="text-sm font-medium text-gray-800">{settings.contactPhone || common('phone')}</p>
                   </div>
                 </div>
 
@@ -197,7 +213,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 mb-0.5">{t('info.email')}</p>
-                    <p className="text-sm font-medium text-gray-800">{common('email')}</p>
+                    <p className="text-sm font-medium text-gray-800">{settings.contactEmail || common('email')}</p>
                   </div>
                 </div>
 

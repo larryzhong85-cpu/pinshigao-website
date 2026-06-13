@@ -26,8 +26,8 @@ interface NewsArticle {
 }
 
 interface NewsListResponse {
-  articles: NewsArticle[];
-  total: number;
+  items: NewsArticle[];
+  pagination: { page: number; limit: number; total: number; totalPages: number };
 }
 
 // ---------- Helpers ----------
@@ -84,7 +84,7 @@ export default function AdminNewsPage() {
         throw new Error(err.message || 'Failed to fetch news');
       }
       const data: NewsListResponse = await res.json();
-      setArticles(data?.articles ?? []);
+      setArticles(data?.items ?? []);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error');
     } finally {

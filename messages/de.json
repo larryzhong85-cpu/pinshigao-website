@@ -354,7 +354,17 @@
     "uploadFailed": "Upload fehlgeschlagen",
     "createProductFailed": "Produkt konnte nicht erstellt werden",
     "toggleFailed": "Umschalten fehlgeschlagen",
-    "copyright": "Copyright"
+    "copyright": "Copyright",
+    "back": "Zurück",
+    "date": "Datum",
+    "failedToLoadArticle": "Artikel konnte nicht geladen werden",
+    "failedToUpdateArticle": "Artikel konnte nicht aktualisiert werden",
+    "featuredImage": "Beitragsbild",
+    "footerAbout": "Footer Über Uns",
+    "noImageSelected": "Kein Bild ausgewählt",
+    "settings": "Einstellungen",
+    "summaryLabel": "Zusammenfassung",
+    "titleLabel": "Titel"
   },
   "contact": {
     "title": "Kontakt",
@@ -382,18 +392,48 @@
     "values": "Qualität · Innovation · Service",
     "history": "Unsere Geschichte",
     "milestones": [
-      {"year": "2004", "event": "Gründung in Foshan, Guangdong"},
-      {"year": "2008", "event": "ISO9001 Qualitätsmanagement-Zertifizierung"},
-      {"year": "2012", "event": "Erste automatisierte Produktionslinie"},
-      {"year": "2016", "event": "Export in 30 Länder"},
-      {"year": "2020", "event": "Phase I der Foshan Smart Factory"},
-      {"year": "2024", "event": "2.000+ Kunden weltweit, 50M Kapazität"}
+      {
+        "year": "2004",
+        "event": "Gründung in Foshan, Guangdong"
+      },
+      {
+        "year": "2008",
+        "event": "ISO9001 Qualitätsmanagement-Zertifizierung"
+      },
+      {
+        "year": "2012",
+        "event": "Erste automatisierte Produktionslinie"
+      },
+      {
+        "year": "2016",
+        "event": "Export in 30 Länder"
+      },
+      {
+        "year": "2020",
+        "event": "Phase I der Foshan Smart Factory"
+      },
+      {
+        "year": "2024",
+        "event": "2.000+ Kunden weltweit, 50M Kapazität"
+      }
     ],
     "stats": [
-      {"value": "2.000+", "label": "Kunden weltweit"},
-      {"value": "50+", "label": "Exportländer"},
-      {"value": "50M", "label": "Jahreskapazität"},
-      {"value": "20", "label": "Jahre Erfahrung"}
+      {
+        "value": "2.000+",
+        "label": "Kunden weltweit"
+      },
+      {
+        "value": "50+",
+        "label": "Exportländer"
+      },
+      {
+        "value": "50M",
+        "label": "Jahreskapazität"
+      },
+      {
+        "value": "20",
+        "label": "Jahre Erfahrung"
+      }
     ]
   },
   "solutionsPage": {
