@@ -307,6 +307,8 @@
     "contactPhone": "联系电话",
     "contactPhonePlaceholder": "输入联系电话",
     "contactAddressPlaceholder": "输入公司地址",
+    "contactHours": "工作时间",
+    "contactHoursPlaceholder": "如：周一至周五 8:30-17:30",
     "address": "公司地址",
     "footerSection": "页脚设置",
     "copyrightPlaceholder": "输入版权信息",

@@ -227,11 +227,11 @@ export default function ContactPage() {
                   <div>
                     <p className="text-sm text-gray-500 mb-0.5">{t('info.hours')}</p>
                     <p className="text-sm font-medium text-gray-800">
-                      {locale === 'zh'
+                      {settings.contactHours || (locale === 'zh'
                         ? '周一至周五 8:30-17:30'
                         : locale === 'de'
                         ? 'Mo-Fr 8:30-17:30'
-                        : 'Mon-Fri 8:30-17:30'}
+                        : 'Mon-Fri 8:30-17:30')}
                     </p>
                   </div>
                 </div>

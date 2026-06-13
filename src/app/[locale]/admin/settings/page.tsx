@@ -12,6 +12,7 @@ interface SettingsData {
   contactEmail: string;
   contactPhone: string;
   contactAddress: string;
+  contactHours: string;
   copyright: string;
   footerAbout: string;
 }
@@ -29,6 +30,7 @@ export default function AdminSettingsPage() {
     contactEmail: '',
     contactPhone: '',
     contactAddress: '',
+    contactHours: '',
     copyright: '',
     footerAbout: '',
   });
@@ -77,6 +79,7 @@ export default function AdminSettingsPage() {
           contactEmail: dataObj.contactEmail ?? '',
           contactPhone: dataObj.contactPhone ?? '',
           contactAddress: dataObj.contactAddress ?? '',
+          contactHours: dataObj.contactHours ?? '',
           copyright: dataObj.copyright ?? '',
           footerAbout: dataObj.footerAbout ?? '',
         };
@@ -105,7 +108,7 @@ export default function AdminSettingsPage() {
 
   /* ---------- Has changes ---------- */
   function hasChanges(): boolean {
-    return (['siteTitle','siteDescription','contactEmail','contactPhone','contactAddress','copyright','footerAbout'] as (keyof SettingsData)[]).some(
+    return (['siteTitle','siteDescription','contactEmail','contactPhone','contactAddress','contactHours','copyright','footerAbout'] as (keyof SettingsData)[]).some(
       (k) => settings[k] !== original[k],
     );
   }
@@ -284,6 +287,21 @@ export default function AdminSettingsPage() {
                   onChange={(e) => updateField('contactAddress', e.target.value)}
                   placeholder={t('contactAddressPlaceholder')}
                   rows={2}
+                />
+              </div>
+
+              {/* Working Hours */}
+              <div>
+                <label className={labelClass} htmlFor="contactHours">
+                  {t('contactHours')}
+                </label>
+                <input
+                  id="contactHours"
+                  name="contactHours"
+                  className={inputClass}
+                  value={settings.contactHours}
+                  onChange={(e) => updateField('contactHours', e.target.value)}
+                  placeholder={t('contactHoursPlaceholder')}
                 />
               </div>
             </div>

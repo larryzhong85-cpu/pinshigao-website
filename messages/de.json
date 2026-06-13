@@ -340,6 +340,8 @@
     "contactEmailPlaceholder": "Kontakt-E-Mail eingeben",
     "contactPhonePlaceholder": "Telefonnummer eingeben",
     "contactAddressPlaceholder": "Firmenadresse eingeben",
+    "contactHours": "Geschäftszeiten",
+    "contactHoursPlaceholder": "z.B. Mo-Fr 8:30-17:30",
     "footerSection": "Fußzeilen-Einstellungen",
     "copyrightPlaceholder": "Urheberrechtstext eingeben",
     "footerAboutPlaceholder": "Beschreibung für Über uns in der Fußzeile eingeben",

@@ -340,6 +340,8 @@
     "contactEmailPlaceholder": "Enter contact email",
     "contactPhonePlaceholder": "Enter contact phone number",
     "contactAddressPlaceholder": "Enter company address",
+    "contactHours": "Working Hours",
+    "contactHoursPlaceholder": "e.g. Mon-Fri 8:30-17:30",
     "footerSection": "Footer Settings",
     "copyrightPlaceholder": "Enter copyright text",
     "footerAboutPlaceholder": "Enter footer about us description",
