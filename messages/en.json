@@ -358,7 +358,8 @@
     "httpError": "HTTP Error",
     "uploadFailed": "Upload failed",
     "createProductFailed": "Failed to create product",
-    "toggleFailed": "Toggle failed"
+    "toggleFailed": "Toggle failed",
+    "copyright": "Copyright"
   },
   "contact": {
     "title": "Contact Us",

@@ -353,7 +353,8 @@
     "httpError": "HTTP-Fehler",
     "uploadFailed": "Upload fehlgeschlagen",
     "createProductFailed": "Produkt konnte nicht erstellt werden",
-    "toggleFailed": "Umschalten fehlgeschlagen"
+    "toggleFailed": "Umschalten fehlgeschlagen",
+    "copyright": "Copyright"
   },
   "contact": {
     "title": "Kontakt",

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -15,11 +15,28 @@ export default function Header() {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [settings, setSettings] = useState<Record<string, string>>({});
 
   const currentLocale = locales.find(l => pathname.startsWith(`/${l.code}`))?.code || 'zh';
 
   // Don't render on admin pages
   if (pathname?.includes('/admin/')) return null;
+
+  // Fetch settings from API
+  useEffect(() => {
+    fetch('/api/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const map: Record<string, string> = {};
+          data.forEach((item: { key: string; value: string }) => {
+            map[item.key] = item.value ?? '';
+          });
+          setSettings(map);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const navItems = [
     { href: `/${currentLocale}`, label: t('home') },
@@ -27,7 +44,6 @@ export default function Header() {
     { href: `/${currentLocale}/solutions`, label: t('solutions') },
     { href: `/${currentLocale}/about`, label: t('about') },
     { href: `/${currentLocale}/news`, label: t('news') },
-    { href: `/${currentLocale}/contact`, label: t('contact') },
   ];
 
   function switchLang(code: string) {
@@ -44,11 +60,11 @@ export default function Header() {
           <div className="flex gap-4 items-center">
             <span className="flex items-center gap-1.5">
               <i className="fa-solid fa-phone text-[#c8a96e] text-[10px]"></i>
-              +86 400-888-9999
+              {settings.contactPhone || '+86 400-888-9999'}
             </span>
             <span className="flex items-center gap-1.5">
               <i className="fa-solid fa-envelope text-[#c8a96e] text-[10px]"></i>
-              info@pinshigao.com
+              {settings.contactEmail || 'info@pinshigao.com'}
             </span>
           </div>
           <div className="flex items-center gap-0">

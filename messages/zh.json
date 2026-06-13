@@ -350,7 +350,10 @@
     "nameEnPlaceholder": "输入英文名称",
     "nameDe": "德文名称",
     "nameDePlaceholder": "输入德文名称",
-    "retry": "重试"
+    "retry": "重试",
+    "viewSite": "查看网站",
+    "copyright": "版权信息",
+    "noCategory": "无分类"
   },
   "contact": {
     "title": "联系我们",

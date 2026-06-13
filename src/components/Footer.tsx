@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,9 +10,26 @@ export default function Footer() {
   const c = useTranslations('common');
   const pathname = usePathname();
   const currentLocale = pathname?.split('/')[1] || 'zh';
+  const [settings, setSettings] = useState<Record<string, string>>({});
 
   // Don't render on admin pages
   if (pathname?.includes('/admin/')) return null;
+
+  // Fetch settings from API
+  useEffect(() => {
+    fetch('/api/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const map: Record<string, string> = {};
+          data.forEach((item: { key: string; value: string }) => {
+            map[item.key] = item.value ?? '';
+          });
+          setSettings(map);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const productLinks = [
     { href: `/${currentLocale}/products/hinges`, zh: '铰链系统', en: 'Hinge Systems', de: 'Scharniersysteme' },
@@ -113,15 +131,15 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex gap-3 text-white/40">
                 <i className="fa-solid fa-location-dot text-[#c8a96e] mt-0.5"></i>
-                <span>{c('addressFull')}</span>
+                <span>{settings.contactAddress || c('addressFull')}</span>
               </li>
               <li className="flex gap-3 text-white/40">
                 <i className="fa-solid fa-phone text-[#c8a96e]"></i>
-                <span>{c('phone')}</span>
+                <span>{settings.contactPhone || c('phone')}</span>
               </li>
               <li className="flex gap-3 text-white/40">
                 <i className="fa-solid fa-envelope text-[#c8a96e]"></i>
-                <span>{c('email')}</span>
+                <span>{settings.contactEmail || c('email')}</span>
               </li>
               <li className="flex gap-3 text-white/40">
                 <i className="fa-solid fa-clock text-[#c8a96e]"></i>
@@ -134,7 +152,7 @@ export default function Footer() {
 
       <div className="border-t border-white/[0.06] py-5">
         <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/30">
-          <span>{c('copyright')}</span>
+          <span>{settings.copyright || c('copyright')}</span>
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-[#c8a96e] transition-colors">{c('privacy')}</a>
             <span className="opacity-30">|</span>
