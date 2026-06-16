@@ -90,6 +90,24 @@ async function main() {
     },
   });
   console.log('✅ News created');
+
+  // Create default "about" page
+  await prisma.page.upsert({
+    where: { slug: 'about' },
+    update: {},
+    create: {
+      slug: 'about',
+      titleZh: '关于品仕高',
+      titleEn: 'About PINSHIGAO',
+      titleDe: 'über PINSHIGAO',
+      contentZh: '品仕高五金有限公司成立于2004年，总部位于广东佛山——中国五金之都，专业从事家具五金研发、制造与销售，主要产品包括铰链、抽屉系统、上翻门系统、滑轨系统、拉手等。品仕高始终秉持"精工品质，触心而动"的品牌理念，以德国精工标准为基石，融合意大利设计美学，致力于为全球家具制造商提供卓越的五金解决方案。经过20年的发展，品仕高已服务全球2000多家家具制造企业，产品出口至50多个国家和地区，年产能突破5000万件。',
+      contentEn: 'Founded in 2004 and headquartered in Foshan, Guangdong — China\'s Hardware Capital — PINSHIGAO Hardware Co., Ltd. specializes in the R&D, manufacturing, and sales of furniture hardware, including hinges, drawer systems, lift systems, sliding systems, handles, and more. Committed to providing high-quality, high-precision, high-reliability hardware solutions for furniture manufacturers worldwide, PINSHIGAO has served over 2,000 furniture manufacturers globally, exporting to 50+ countries with an annual capacity exceeding 50 million units.',
+      contentDe: 'Die PINSHIGAO Hardware Co., Ltd. wurde 2004 gegründet und hat ihren Hauptsitz in Foshan, Guangdong — der chinesischen Hardware-Hauptstadt. Das Unternehmen ist auf die Forschung, Entwicklung, Herstellung und den Vertrieb von Möbelbeschlägen spezialisiert, darunter Scharniere, Schubladensysteme, Klappenbeschläge, Auszugssysteme und Griffe. Mit über 2.000 Kunden weltweit exportiert PINSHIGAO in mehr als 50 Länder und verfügt über eine jährliche Produktionskapazität von über 50 Millionen Einheiten.',
+      published: true,
+    },
+  });
+  console.log('✅ About page created');
+
   console.log('🎉 Seeding complete!');
 }
 
