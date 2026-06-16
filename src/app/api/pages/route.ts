@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
       orderBy,
     });
 
-    return Response.json({ pages });
+    return Response.json(pages);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to fetch pages';
     return Response.json({ error: message }, { status: 500 });
@@ -89,9 +89,84 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return Response.json({ page }, { status: 201 });
+    return Response.json(page, { status: 201 });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to create page';
+    return Response.json({ error: message }, { status: 500 });
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  const user = requireAuth(request);
+  if (!user) {
+    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const body = await request.json();
+    const { id, slug, titleZh, titleEn, titleDe, contentZh, contentEn, contentDe, published } = body;
+
+    if (!id) {
+      return Response.json({ error: 'Missing page id' }, { status: 400 });
+    }
+
+    const existing = await prisma.page.findUnique({ where: { id: Number(id) } });
+    if (!existing) {
+      return Response.json({ error: 'Page not found' }, { status: 404 });
+    }
+
+    // If slug is being changed, check for conflict
+    if (slug && slug !== existing.slug) {
+      const conflict = await prisma.page.findUnique({ where: { slug } });
+      if (conflict) {
+        return Response.json({ error: 'A page with this slug already exists' }, { status: 409 });
+      }
+    }
+
+    const data: Record<string, unknown> = {};
+    if (slug !== undefined) data.slug = slug;
+    if (titleZh !== undefined) data.titleZh = titleZh;
+    if (titleEn !== undefined) data.titleEn = titleEn;
+    if (titleDe !== undefined) data.titleDe = titleDe;
+    if (contentZh !== undefined) data.contentZh = contentZh;
+    if (contentEn !== undefined) data.contentEn = contentEn;
+    if (contentDe !== undefined) data.contentDe = contentDe;
+    if (published !== undefined) data.published = published;
+
+    const page = await prisma.page.update({
+      where: { id: Number(id) },
+      data,
+    });
+
+    return Response.json(page);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to update page';
+    return Response.json({ error: message }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  const user = requireAuth(request);
+  if (!user) {
+    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    if (!id) {
+      return Response.json({ error: 'Missing page id' }, { status: 400 });
+    }
+
+    const existing = await prisma.page.findUnique({ where: { id: Number(id) } });
+    if (!existing) {
+      return Response.json({ error: 'Page not found' }, { status: 404 });
+    }
+
+    await prisma.page.delete({ where: { id: Number(id) } });
+    return Response.json({ message: 'Page deleted' });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to delete page';
     return Response.json({ error: message }, { status: 500 });
   }
 }

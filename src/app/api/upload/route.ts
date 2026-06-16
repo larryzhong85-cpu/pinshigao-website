@@ -3,6 +3,7 @@ import sharp from 'sharp'
 import { writeFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import crypto from 'node:crypto'
+import { prisma } from '@/lib/prisma'
 
 const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads')
 const MAX_WIDTH = 1920
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     // Optimize image with sharp
     let optimized: Buffer
-    const ext = 'webp'
+    const ext = file.type === 'image/gif' ? 'gif' : 'webp'
 
     const image = sharp(buffer)
     const metadata = await image.metadata()
@@ -56,6 +57,16 @@ export async function POST(request: NextRequest) {
 
     await mkdir(UPLOAD_DIR, { recursive: true })
     await writeFile(filePath, optimized)
+
+    // Save media record in database
+    await prisma.media.create({
+      data: {
+        filename: uniqueName,
+        original: file.name,
+        mimetype: file.type,
+        size: Buffer.byteLength(optimized),
+      },
+    })
 
     return Response.json(
       {

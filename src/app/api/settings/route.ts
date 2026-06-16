@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 
 export async function GET() {
   const settings = await prisma.setting.findMany({
@@ -9,6 +10,11 @@ export async function GET() {
 }
 
 export async function PUT(request: NextRequest) {
+  const user = requireAuth(request)
+  if (!user) {
+    return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   const body = await request.json()
 
   // Support both single {key, value} and multi-key object {siteTitle: "...", ...}

@@ -60,7 +60,7 @@ export default function AdminNewsPage() {
   const [search, setSearch] = useState('');
   const [showPublished, setShowPublished] = useState<boolean | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
-  const [confirmDelete, setConfirmDelete] = useState<number | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState('');
 
   // ---------- Fetch news ----------
@@ -99,8 +99,8 @@ export default function AdminNewsPage() {
   // ---------- Toggle published ----------
   async function togglePublished(article: NewsArticle) {
     try {
-      const res = await fetch(`/api/news/${article.id}`, {
-        method: 'PATCH',
+      const res = await fetch(`/api/news/${article.slug}`, {
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ published: !article.published }),
@@ -128,10 +128,10 @@ export default function AdminNewsPage() {
   }
 
   // ---------- Delete ----------
-  async function deleteArticle(id: number) {
-    setDeletingId(id);
+  async function deleteArticle(slug: string) {
+    setDeletingId(null); // use article.slug as key
     try {
-      const res = await fetch(`/api/news/${id}`, {
+      const res = await fetch(`/api/news/${slug}`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -143,7 +143,7 @@ export default function AdminNewsPage() {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.message || 'Delete failed');
       }
-      setArticles((prev) => prev.filter((a) => a.id !== id));
+      setArticles((prev) => prev.filter((a) => a.slug !== slug));
       setSuccessMsg(
         locale === 'zh' ? '已删除' : locale === 'de' ? 'Gelöscht' : 'Deleted',
       );
@@ -421,18 +421,18 @@ export default function AdminNewsPage() {
                               </span>
                             </Link>
 
-                            {confirmDelete === article.id ? (
+                            {confirmDelete === article.slug ? (
                               <div className="flex items-center gap-1">
                                 <span className="text-xs text-red-600 mr-1">
                                   {locale === 'zh' ? '确认?' : locale === 'de' ? 'Bestätigen?' : 'Confirm?'}
                                 </span>
                                 <button
-                                  onClick={() => deleteArticle(article.id)}
-                                  disabled={deletingId === article.id}
+                                  onClick={() => deleteArticle(article.slug)}
+                                  disabled={deletingId !== null}
                                   className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs rounded-sm bg-red-600 text-white
                                     hover:bg-red-700 transition-colors disabled:opacity-50"
                                 >
-                                  {deletingId === article.id ? (
+                                  {deletingId !== null ? (
                                     <i className="fa-solid fa-spinner fa-spin" />
                                   ) : (
                                     <i className="fa-solid fa-check" />
@@ -448,7 +448,7 @@ export default function AdminNewsPage() {
                               </div>
                             ) : (
                               <button
-                                onClick={() => setConfirmDelete(article.id)}
+                                onClick={() => setConfirmDelete(article.slug)}
                                 className="inline-flex items-center gap-1 px-3 py-1.5 text-xs rounded-sm text-[var(--color-text-secondary)]
                                   hover:text-red-600 hover:bg-red-50 transition-colors"
                               >

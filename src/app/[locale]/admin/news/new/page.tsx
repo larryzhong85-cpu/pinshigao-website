@@ -60,7 +60,7 @@ export default function AdminNewsNewPage() {
     try {
       const form = new FormData();
       form.append('file', file);
-      const res = await fetch('/api/media/upload', {
+      const res = await fetch('/api/upload', {
         method: 'POST',
         credentials: 'include',
         body: form,

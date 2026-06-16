@@ -67,6 +67,7 @@ export default function HomePage({
   const pathname = usePathname();
   const locale = pathname?.split('/')[1] || 'zh';
   const [dynamicCategories, setDynamicCategories] = useState<HomeCategory[]>([]);
+  const [newsItems, setNewsItems] = useState<any[]>([]);
 
   useEffect(() => {
     fetch('/api/categories')
@@ -75,6 +76,14 @@ export default function HomePage({
         if (Array.isArray(data)) setDynamicCategories(data);
       })
       .catch(() => {}); // silently fail, use empty array
+
+    fetch('/api/news?limit=3')
+      .then(res => res.json())
+      .then(data => {
+        const items = Array.isArray(data) ? data : (data?.items ?? []);
+        setNewsItems(items);
+      })
+      .catch(() => {});
   }, []);
 
   const categories = dynamicCategories.length > 0 ? dynamicCategories : [];
@@ -219,37 +228,75 @@ export default function HomePage({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="group bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
-              >
-                <div className="relative h-[200px] overflow-hidden bg-gray-100">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
-                    style={{ backgroundImage: `url(${newsImages[i - 1]})` }}
-                  />
+            {(newsItems.length > 0 ? newsItems : [1, 2, 3]).map((item: any, idx: number) => {
+              const localizedTitle = item?.titleZh || item?.titleEn || '';
+              const localizedSummary = item?.summaryZh || item?.summaryEn || '';
+              const itemDate = item?.date ? item.date.slice(0, 10) : '';
+              const itemSlug = item?.slug || '';
+              const itemImage = item?.image || newsImages[idx];
+              return itemSlug ? (
+                <div
+                  key={item.id || idx}
+                  className="group bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="relative h-[200px] overflow-hidden bg-gray-100">
+                    <img
+                      src={itemImage}
+                      alt={localizedTitle}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).style.backgroundImage = `url(${newsImages[idx]})`;
+                        (e.currentTarget as HTMLImageElement).style.backgroundSize = 'cover';
+                      }}
+                    />
+                  </div>
+                  <div className="p-6">
+                    <p className="text-gray-400 text-xs mb-2">{itemDate}</p>
+                    <h3 className="text-[#1a3a5c] font-semibold text-base mb-2 line-clamp-2 leading-snug">
+                      {localizedTitle}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
+                      {localizedSummary}
+                    </p>
+                    <Link
+                      href={`/${locale}/news/${itemSlug}`}
+                      className="inline-flex items-center gap-2 text-[#c8a96e] text-sm font-medium group-hover:gap-3 transition-all"
+                    >
+                      {t('common.readMore')}
+                      <i className="fa-solid fa-arrow-right text-xs" />
+                    </Link>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-gray-400 text-xs mb-2">
-                    {t(`news.item${i}.date`)}
-                  </p>
-                  <h3 className="text-[#1a3a5c] font-semibold text-base mb-2 line-clamp-2 leading-snug">
-                    {t(`news.item${i}.title`)}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
-                    {t(`news.item${i}.desc`)}
-                  </p>
-                  <Link
-                    href={`/${locale}/news/${i}`}
-                    className="inline-flex items-center gap-2 text-[#c8a96e] text-sm font-medium group-hover:gap-3 transition-all"
-                  >
-                    {t('common.readMore')}
-                    <i className="fa-solid fa-arrow-right text-xs" />
-                  </Link>
+              ) : (
+                <div
+                  key={idx}
+                  className="group bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="relative h-[200px] overflow-hidden bg-gray-100">
+                    <div
+                      className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
+                      style={{ backgroundImage: `url(${newsImages[idx]})` }}
+                    />
+                  </div>
+                  <div className="p-6">
+                    <p className="text-gray-400 text-xs mb-2">{t(`news.item${idx + 1}.date`)}</p>
+                    <h3 className="text-[#1a3a5c] font-semibold text-base mb-2 line-clamp-2 leading-snug">
+                      {t(`news.item${idx + 1}.title`)}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
+                      {t(`news.item${idx + 1}.desc`)}
+                    </p>
+                    <Link
+                      href={`/${locale}/news`}
+                      className="inline-flex items-center gap-2 text-[#c8a96e] text-sm font-medium group-hover:gap-3 transition-all"
+                    >
+                      {t('common.readMore')}
+                      <i className="fa-solid fa-arrow-right text-xs" />
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

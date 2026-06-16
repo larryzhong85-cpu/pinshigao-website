@@ -2,17 +2,27 @@ import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth';
 
-// GET /api/news - list news with optional pagination and status filter
+// GET /api/news - list news with optional pagination, status filter, and search
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
     const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '20', 10)));
     const published = searchParams.get('published');
+    const search = searchParams.get('search');
 
-    const where: { published?: boolean } = {};
+    const where: Record<string, unknown> = {};
     if (published === 'true') where.published = true;
     else if (published === 'false') where.published = false;
+
+    if (search) {
+      where.OR = [
+        { titleZh: { contains: search } },
+        { titleEn: { contains: search } },
+        { titleDe: { contains: search } },
+        { slug: { contains: search } },
+      ];
+    }
 
     const [items, total] = await Promise.all([
       prisma.news.findMany({

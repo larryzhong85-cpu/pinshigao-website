@@ -33,6 +33,7 @@ export default function NewProductPage() {
   const [descZh, setDescZh] = useState('');
   const [descEn, setDescEn] = useState('');
   const [descDe, setDescDe] = useState('');
+  const [slug, setSlug] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [featured, setFeatured] = useState(false);
   const [published, setPublished] = useState(true);
@@ -95,6 +96,7 @@ export default function NewProductPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          slug: slug || nameEn.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
           nameZh,
           nameEn,
           nameDe,
@@ -187,6 +189,20 @@ export default function NewProductPage() {
                 required
               />
             </div>
+          </div>
+        </div>
+
+        {/* ---- Slug ---- */}
+        <div>
+          <h2 className={sectionTitle}>Slug</h2>
+          <div>
+            <input
+              className={inputClass}
+              value={slug}
+              onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-|-$/g, ''))}
+              placeholder="Auto-generated from English name; leave blank to auto-generate"
+            />
+            <p className="text-xs text-gray-400 mt-1">Unique URL identifier. Auto-generated from English name if left blank.</p>
           </div>
         </div>
 

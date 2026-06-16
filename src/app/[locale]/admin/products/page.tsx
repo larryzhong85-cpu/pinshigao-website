@@ -101,8 +101,9 @@ export default function AdminProductsPage() {
     try {
       const res = await fetch('/api/products');
       if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
-      const data: Product[] = await res.json();
-      setProducts(data);
+      const data = await res.json();
+      const list = data?.products ?? (Array.isArray(data) ? data : []);
+      setProducts(list);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       setError(msg);
@@ -120,7 +121,7 @@ export default function AdminProductsPage() {
     if (!deleteTarget) return;
     setDeleting(true);
     try {
-      const res = await fetch(`/api/products/${deleteTarget.id}`, {
+      const res = await fetch(`/api/products/${deleteTarget.slug}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error(`Delete failed: ${res.status}`);
@@ -237,7 +238,7 @@ export default function AdminProductsPage() {
                       {/* Name (zh) */}
                       <td className="px-4 py-3">
                         <Link
-                          href={`/${locale}/admin/products/${product.id}/edit`}
+                          href={`/${locale}/admin/products/edit/${product.slug}`}
                           className="text-gray-900 font-medium hover:text-[#c8a96e] transition-colors"
                         >
                           {product.nameZh}
@@ -271,7 +272,7 @@ export default function AdminProductsPage() {
                       <td className="px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Link
-                            href={`/${locale}/admin/products/${product.id}/edit`}
+                            href={`/${locale}/admin/products/edit/${product.slug}`}
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                           >
                             <i className="fa-solid fa-pen" />
