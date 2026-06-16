@@ -26,6 +26,8 @@ export default function ContactPage() {
 
   const [form, setForm] = useState<FormData>(initialForm);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [settings, setSettings] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -48,11 +50,30 @@ export default function ContactPage() {
     setForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // For now, simply show success message
-    setSubmitted(true);
-    setForm(initialForm);
+    setSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const res = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || 'Submission failed');
+      }
+
+      setSubmitted(true);
+      setForm(initialForm);
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Submission failed');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   const inputClass =
@@ -98,6 +119,12 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {submitError && (
+                  <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-sm">
+                    <i className="fa-solid fa-circle-exclamation mr-2" />
+                    {submitError}
+                  </div>
+                )}
                 <div>
                   <label htmlFor="name" className={labelClass}>
                     {t('form.name')} <span className="text-red-400">*</span>
@@ -163,9 +190,11 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="w-full md:w-auto px-10 py-3 bg-[#c8a96e] text-white text-sm font-medium hover:bg-[#a8894e] transition-colors rounded-sm tracking-wider"
+                  disabled={submitting}
+                  className="w-full md:w-auto px-10 py-3 bg-[#c8a96e] text-white text-sm font-medium hover:bg-[#a8894e] transition-colors rounded-sm tracking-wider disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
                 >
-                  {t('form.submit')}
+                  {submitting && <i className="fa-solid fa-spinner fa-spin" />}
+                  {submitting ? common('loading') : t('form.submit')}
                 </button>
               </form>
             )}

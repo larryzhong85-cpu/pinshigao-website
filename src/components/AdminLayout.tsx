@@ -11,6 +11,7 @@ const sidebarItems = [
   { href: 'categories', key: 'manageCategories', icon: 'fa-tags' },
   { href: 'news', key: 'manageNews', icon: 'fa-newspaper' },
   { href: 'pages', key: 'managePages', icon: 'fa-file-lines' },
+  { href: 'inquiries', key: 'manageInquiries', icon: 'fa-envelope' },
   { href: 'settings', key: 'manageSettings', icon: 'fa-gear' },
   { href: 'media', key: 'manageMedia', icon: 'fa-image' },
 ];
