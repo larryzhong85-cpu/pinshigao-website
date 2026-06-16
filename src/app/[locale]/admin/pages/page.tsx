@@ -1,9 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import AdminLayout from '@/components/AdminLayout';
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+import 'react-quill-new/dist/quill.snow.css';
 
 interface PageEntry {
   id: number;
@@ -126,6 +131,21 @@ export default function AdminPages() {
   const sectionTitle =
     'text-base font-semibold text-[#1a3a5c] mt-6 mb-3 pb-2 border-b border-gray-200';
 
+  // Quill toolbar modules
+  const quillModules = useMemo(() => ({
+    toolbar: [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+      ['blockquote', 'code-block'],
+      [{ 'align': [] }],
+      ['link', 'image'],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      ['clean'],
+    ],
+  }), []);
+
   if (editing) {
     return (
       <AdminLayout>
@@ -202,35 +222,51 @@ export default function AdminPages() {
             {/* Content editors */}
             <div>
               <h2 className={sectionTitle}>Content</h2>
+              <p className="text-xs text-gray-400 mb-4">Use the visual editor to format content. Switch to HTML mode via &lt;/&gt; if needed.</p>
 
               <div className="mb-5">
                 <label className={labelClass}>Content (ZH)</label>
-                <textarea
-                  className={`${inputClass} resize-y min-h-[200px] font-mono text-xs leading-relaxed`}
-                  value={editing.contentZh}
-                  onChange={(e) => setEditing({ ...editing, contentZh: e.target.value })}
-                  placeholder="HTML or plain text content for the Chinese version"
-                />
+                {typeof window !== 'undefined' && (
+                  <div className="border border-gray-300 rounded-sm overflow-hidden quill-editor-wrapper">
+                    <ReactQuill
+                      value={editing.contentZh}
+                      onChange={(val: string) => setEditing({ ...editing, contentZh: val })}
+                      modules={quillModules}
+                      theme="snow"
+                      placeholder="输入中文内容..."
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="mb-5">
                 <label className={labelClass}>Content (EN)</label>
-                <textarea
-                  className={`${inputClass} resize-y min-h-[200px] font-mono text-xs leading-relaxed`}
-                  value={editing.contentEn}
-                  onChange={(e) => setEditing({ ...editing, contentEn: e.target.value })}
-                  placeholder="HTML or plain text content for the English version"
-                />
+                {typeof window !== 'undefined' && (
+                  <div className="border border-gray-300 rounded-sm overflow-hidden quill-editor-wrapper">
+                    <ReactQuill
+                      value={editing.contentEn}
+                      onChange={(val: string) => setEditing({ ...editing, contentEn: val })}
+                      modules={quillModules}
+                      theme="snow"
+                      placeholder="Enter English content..."
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="mb-5">
                 <label className={labelClass}>Content (DE)</label>
-                <textarea
-                  className={`${inputClass} resize-y min-h-[200px] font-mono text-xs leading-relaxed`}
-                  value={editing.contentDe}
-                  onChange={(e) => setEditing({ ...editing, contentDe: e.target.value })}
-                  placeholder="HTML or plain text content for the German version"
-                />
+                {typeof window !== 'undefined' && (
+                  <div className="border border-gray-300 rounded-sm overflow-hidden quill-editor-wrapper">
+                    <ReactQuill
+                      value={editing.contentDe}
+                      onChange={(val: string) => setEditing({ ...editing, contentDe: val })}
+                      modules={quillModules}
+                      theme="snow"
+                      placeholder="Deutschen Inhalt eingeben..."
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
