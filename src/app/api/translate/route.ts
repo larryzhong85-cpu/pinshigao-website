@@ -4,26 +4,36 @@ import { NextRequest } from 'next/server';
 async function translate(text: string, source: string, target: string): Promise<string> {
   if (!text || text.trim().length === 0) return '';
 
-  // Don't translate if it's HTML - extract text content between tags
+  // If text is HTML, strip all tags to get plain text for translation
+  let plainText = text;
   const isHtml = /<[a-z][\s\S]*>/i.test(text);
   if (isHtml) {
-    // For HTML content, just return a note
-    // Users can translate section by section with the visual editor
-    return text;
+    plainText = text
+      .replace(/<[^>]*>/g, ' ')   // strip tags
+      .replace(/&nbsp;/g, ' ')    // decode &nbsp;
+      .replace(/&amp;/g, '&')     // decode &amp;
+      .replace(/&lt;/g, '<')      // decode &lt;
+      .replace(/&gt;/g, '>')      // decode &gt;
+      .replace(/&quot;/g, '"')    // decode &quot;
+      .replace(/\s+/g, ' ')       // collapse whitespace
+      .trim();
   }
+
+  const textToTranslate = plainText.slice(0, 2000); // character limit
+  if (!textToTranslate) return text; // if stripping left nothing, return original
 
   try {
     const res = await fetch(
-      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.slice(0, 500))}&langpair=${source}|${target}`,
-      { signal: AbortSignal.timeout(5000) },
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(textToTranslate)}&langpair=${source}|${target}`,
+      { signal: AbortSignal.timeout(8000) },
     );
     const data = await res.json();
     if (data?.responseStatus === 200 && data?.responseData?.translatedText) {
       return data.responseData.translatedText;
     }
-    return text; // fallback: return original
+    return isHtml ? plainText : text; // fallback: return plain text for HTML, original for plain
   } catch {
-    return text; // fallback on error
+    return isHtml ? plainText : text; // fallback on error
   }
 }
 
