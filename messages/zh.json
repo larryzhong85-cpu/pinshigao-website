@@ -238,6 +238,8 @@
     "daysAgo": "2天前",
     "manageProducts": "产品管理",
     "manageProductsDesc": "管理产品目录",
+    "adminUser": "管理员",
+    "logout": "退出登录",
     "addProduct": "添加产品",
     "productName": "产品名称",
     "editProduct": "编辑产品",

@@ -166,7 +166,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div className="w-8 h-8 rounded-full bg-[#1a3a5c] text-white flex items-center justify-center text-xs font-medium select-none">
                 A
               </div>
-              <span className="text-[#1a1a1a] hidden sm:inline">Admin</span>
+              <span className="text-[#1a1a1a] hidden sm:inline">{t('adminUser') || 'Admin'}</span>
             </div>
             <button
               onClick={handleLogout}
