@@ -52,6 +52,7 @@ export default function EditNewsPage() {
   const [submitting, setSubmitting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
+  const [translating, setTranslating] = useState<'title' | 'content' | null>(null);
   const [notFound, setNotFound] = useState(false);
 
   /* ---------- fetch existing article ---------- */
@@ -124,6 +125,28 @@ export default function EditNewsPage() {
   };
 
   const removeImage = () => setImage('');
+
+  /* ---------- auto translate ---------- */
+
+  const autoTranslate = async (field: 'title' | 'content') => {
+    setTranslating(field);
+    const sourceText = field === 'title' ? titleZh : contentZh;
+    if (!sourceText) { setTranslating(null); return; }
+    try {
+      const res = await fetch('/api/translate', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: sourceText, source: 'zh-CN', targets: ['en', 'de'] }),
+      });
+      const data = await res.json();
+      if (data.en !== undefined) {
+        if (field === 'title') setTitleEn(data.en); else setContentEn(data.en);
+      }
+      if (data.de !== undefined) {
+        if (field === 'title') setTitleDe(data.de); else setContentDe(data.de);
+      }
+    } catch { /* silent */ }
+    finally { setTranslating(null); }
+  };
 
   /* ---------- submit handler ---------- */
 
@@ -230,6 +253,10 @@ export default function EditNewsPage() {
         {/* ---- Titles ---- */}
         <div>
           <h2 className={sectionTitle}>{t('titles')}</h2>
+          <button type="button" onClick={() => autoTranslate('title')} disabled={translating !== null || !titleZh}
+            className="mb-3 px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+            {translating === 'title' ? <><i className="fa-solid fa-spinner fa-spin" /> Translating...</> : <><i className="fa-solid fa-language" /> Auto Translate</>}
+          </button>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className={labelClass}>
@@ -301,6 +328,10 @@ export default function EditNewsPage() {
         {/* ---- Content ---- */}
         <div>
           <h2 className={sectionTitle}>{t('content')}</h2>
+          <button type="button" onClick={() => autoTranslate('content')} disabled={translating !== null || !contentZh}
+            className="mb-3 px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+            {translating === 'content' ? <><i className="fa-solid fa-spinner fa-spin" /> Translating...</> : <><i className="fa-solid fa-language" /> Auto Translate</>}
+          </button>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className={labelClass}>{t('content')} (ZH)</label>

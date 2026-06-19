@@ -36,9 +36,27 @@ export default function AdminNewsNewPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [translating, setTranslating] = useState<'title' | 'content' | null>(null);
 
   const t = (zh: string, en: string, de: string) =>
     locale === 'zh' ? zh : locale === 'de' ? de : en;
+
+  // ---------- Auto-translate ----------
+  async function autoTranslate(field: 'title' | 'content') {
+    setTranslating(field);
+    const sourceText = field === 'title' ? titleZh : contentZh;
+    if (!sourceText) { setTranslating(null); return; }
+    try {
+      const res = await fetch('/api/translate', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: sourceText, source: 'zh-CN', targets: ['en', 'de'] }),
+      });
+      const data = await res.json();
+      if (data.en !== undefined) { if (field === 'title') setTitleEn(data.en); else setContentEn(data.en); }
+      if (data.de !== undefined) { if (field === 'title') setTitleDe(data.de); else setContentDe(data.de); }
+    } catch { /* silent */ }
+    finally { setTranslating(null); }
+  }
 
   // ---------- Image upload ----------
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -169,9 +187,16 @@ export default function AdminNewsNewPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* ---------- Title ---------- */}
           <div className="bg-white border border-gray-200 rounded-sm p-6">
-            <h2 className="text-base font-semibold text-[#1a3a5c] mb-4">
-              {t('标题', 'Title', 'Titel')}
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-semibold text-[#1a3a5c]">
+                {t('标题', 'Title', 'Titel')}
+              </h2>
+              <button type="button" onClick={() => autoTranslate('title')} disabled={translating !== null || !titleZh}
+                className="px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+                {translating === 'title' ? <><i className="fa-solid fa-spinner fa-spin" /> {t('翻译中...', 'Translating...', 'Übersetze...')}</>
+                  : <><i className="fa-solid fa-language" /> {t('自动翻译', 'Auto Translate', 'Übersetzen')}</>}
+              </button>
+            </div>
             <div className="space-y-4">
               <div>
                 <label className={labelClass}>
@@ -217,9 +242,16 @@ export default function AdminNewsNewPage() {
 
           {/* ---------- Content ---------- */}
           <div className="bg-white border border-gray-200 rounded-sm p-6">
-            <h2 className="text-base font-semibold text-[#1a3a5c] mb-4">
-              {t('内容', 'Content', 'Inhalt')}
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-semibold text-[#1a3a5c]">
+                {t('内容', 'Content', 'Inhalt')}
+              </h2>
+              <button type="button" onClick={() => autoTranslate('content')} disabled={translating !== null || !contentZh}
+                className="px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+                {translating === 'content' ? <><i className="fa-solid fa-spinner fa-spin" /> {t('翻译中...', 'Translating...', 'Übersetze...')}</>
+                  : <><i className="fa-solid fa-language" /> {t('自动翻译', 'Auto Translate', 'Übersetzen')}</>}
+              </button>
+            </div>
             <div className="space-y-4">
               <div>
                 <label className={labelClass}>

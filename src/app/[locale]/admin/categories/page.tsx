@@ -71,6 +71,7 @@ export default function AdminCategoriesPage() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [form, setForm] = useState<FormData>(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [translating, setTranslating] = useState(false);
   const [formError, setFormError] = useState('');
 
   /* Delete confirmation */
@@ -121,6 +122,35 @@ export default function AdminCategoriesPage() {
     });
     setFormError('');
     setModalOpen(true);
+  };
+
+  const autoTranslate = async () => {
+    if (!form.nameZh) return;
+    setTranslating(true);
+    try {
+      const res = await fetch('/api/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: form.nameZh, source: 'zh-CN', targets: ['en', 'de'] }),
+      });
+      const data = await res.json();
+      const updated = { ...form };
+      if (data.en && !form.nameEn) {
+        updated.nameEn = data.en;
+        // Auto-generate slug from English name (only when creating)
+        if (editingId === null) {
+          updated.slug = slugify(data.en);
+        }
+      }
+      if (data.de && !form.nameDe) {
+        updated.nameDe = data.de;
+      }
+      setForm(updated);
+    } catch {
+      // Silently fail — user can input manually
+    } finally {
+      setTranslating(false);
+    }
   };
 
   const handleNameChange = (field: 'nameZh' | 'nameEn' | 'nameDe', value: string) => {
@@ -405,6 +435,24 @@ export default function AdminCategoriesPage() {
                 <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-sm">
                   <i className="fa-solid fa-circle-exclamation mr-2"></i>
                   {formError}
+                </div>
+              )}
+
+              {/* Auto-translate button */}
+              {form.nameZh && (
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={autoTranslate}
+                    disabled={translating}
+                    className="px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1"
+                  >
+                    {translating ? (
+                      <><i className="fa-solid fa-spinner fa-spin" /> {t('translating') || 'Translating...'}</>
+                    ) : (
+                      <><i className="fa-solid fa-language" /> {t('translate') || 'Auto Translate'}</>
+                    )}
+                  </button>
                 </div>
               )}
 

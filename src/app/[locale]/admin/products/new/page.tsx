@@ -37,6 +37,7 @@ export default function NewProductPage() {
   const [categoryId, setCategoryId] = useState('');
   const [featured, setFeatured] = useState(false);
   const [published, setPublished] = useState(true);
+  const [translating, setTranslating] = useState<'name' | 'subtitle' | 'desc' | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
 
@@ -132,6 +133,46 @@ export default function NewProductPage() {
   const labelClass = 'block text-sm font-medium text-gray-700 mb-1';
   const sectionTitle = 'text-base font-semibold text-primary mt-6 mb-3 pb-2 border-b border-gray-200';
 
+  /* ---------- auto-translate ---------- */
+  const autoTranslate = async (field: 'name' | 'subtitle' | 'desc') => {
+    setTranslating(field);
+    const sourceText =
+      field === 'name' ? nameZh :
+      field === 'subtitle' ? subtitleZh :
+      descZh;
+
+    if (!sourceText) {
+      setTranslating(null);
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: sourceText, source: 'zh-CN', targets: ['en', 'de'] }),
+      });
+      const data = await res.json();
+      if (data.en !== undefined) {
+        if (field === 'name') setNameEn(data.en);
+        else if (field === 'subtitle') setSubtitleEn(data.en);
+        else setDescEn(data.en);
+      }
+      if (data.de !== undefined) {
+        if (field === 'name') setNameDe(data.de);
+        else if (field === 'subtitle') setSubtitleDe(data.de);
+        else setDescDe(data.de);
+      }
+      if (field === 'name' && !slug && data.en) {
+        setSlug(data.en.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+      }
+    } catch {
+      // silent
+    } finally {
+      setTranslating(null);
+    }
+  };
+
   return (<AdminLayout>
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
@@ -155,6 +196,10 @@ export default function NewProductPage() {
         {/* ---- Names ---- */}
         <div>
           <h2 className={sectionTitle}>{t("productName")}</h2>
+          <button type="button" onClick={() => autoTranslate('name')} disabled={translating !== null || !nameZh}
+            className="mb-3 px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+            {translating === 'name' ? <><i className="fa-solid fa-spinner fa-spin" /> Translating...</> : <><i className="fa-solid fa-language" /> Auto Translate</>}
+          </button>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className={labelClass}>
@@ -209,6 +254,10 @@ export default function NewProductPage() {
         {/* ---- Subtitles ---- */}
         <div>
           <h2 className={sectionTitle}>Subtitles</h2>
+          <button type="button" onClick={() => autoTranslate('subtitle')} disabled={translating !== null || !subtitleZh}
+            className="mb-3 px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+            {translating === 'subtitle' ? <><i className="fa-solid fa-spinner fa-spin" /> Translating...</> : <><i className="fa-solid fa-language" /> Auto Translate</>}
+          </button>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className={labelClass}>Subtitle (ZH)</label>
@@ -240,6 +289,10 @@ export default function NewProductPage() {
         {/* ---- Descriptions ---- */}
         <div>
           <h2 className={sectionTitle}>{t("content")}</h2>
+          <button type="button" onClick={() => autoTranslate('desc')} disabled={translating !== null || !descZh}
+            className="mb-3 px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+            {translating === 'desc' ? <><i className="fa-solid fa-spinner fa-spin" /> Translating...</> : <><i className="fa-solid fa-language" /> Auto Translate</>}
+          </button>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className={labelClass}>ZH</label>

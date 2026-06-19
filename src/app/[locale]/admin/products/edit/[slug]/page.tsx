@@ -45,6 +45,7 @@ export default function EditProductPage() {
   const [error, setError] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
   const [statusMessage, setStatusMessage] = useState('');
+  const [translating, setTranslating] = useState<'name' | 'subtitle' | 'desc' | null>(null);
 
   const [form, setForm] = useState<ProductFormData>({
     nameZh: '',
@@ -159,6 +160,28 @@ export default function EditProductPage() {
     }
   }
 
+  const autoTranslate = async (field: 'name' | 'subtitle' | 'desc') => {
+    setTranslating(field);
+    const sourceText = field === 'name' ? form.nameZh : field === 'subtitle' ? form.subtitleZh : form.descZh;
+    if (!sourceText) { setTranslating(null); return; }
+    try {
+      const res = await fetch('/api/translate', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: sourceText, source: 'zh-CN', targets: ['en', 'de'] }),
+      });
+      const data = await res.json();
+      if (data.en !== undefined) {
+        const enKey = field === 'name' ? 'nameEn' : field === 'subtitle' ? 'subtitleEn' : 'descEn';
+        updateField(enKey as any, data.en);
+      }
+      if (data.de !== undefined) {
+        const deKey = field === 'name' ? 'nameDe' : field === 'subtitle' ? 'subtitleDe' : 'descDe';
+        updateField(deKey as any, data.de);
+      }
+    } catch { /* silent */ }
+    finally { setTranslating(null); }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -215,6 +238,10 @@ export default function EditProductPage() {
           {/* Multilingual Names */}
           <section className="bg-white rounded shadow-sm border border-gray-200 p-6">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('productName')}</h2>
+            <button type="button" onClick={() => autoTranslate('name')} disabled={translating !== null || !form.nameZh}
+              className="mb-3 px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+              {translating === 'name' ? <><i className="fa-solid fa-spinner fa-spin" /> Translating...</> : <><i className="fa-solid fa-language" /> Auto Translate</>}
+            </button>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -258,6 +285,10 @@ export default function EditProductPage() {
           {/* Subtitles */}
           <section className="bg-white rounded shadow-sm border border-gray-200 p-6">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('subtitle')}</h2>
+            <button type="button" onClick={() => autoTranslate('subtitle')} disabled={translating !== null || !form.subtitleZh}
+              className="mb-3 px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+              {translating === 'subtitle' ? <><i className="fa-solid fa-spinner fa-spin" /> Translating...</> : <><i className="fa-solid fa-language" /> Auto Translate</>}
+            </button>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">{t('subtitle')} (ZH)</label>
@@ -292,6 +323,10 @@ export default function EditProductPage() {
           {/* Descriptions */}
           <section className="bg-white rounded shadow-sm border border-gray-200 p-6">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('productDescription')}</h2>
+            <button type="button" onClick={() => autoTranslate('desc')} disabled={translating !== null || !form.descZh}
+              className="mb-3 px-3 py-1.5 text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors inline-flex items-center gap-1">
+              {translating === 'desc' ? <><i className="fa-solid fa-spinner fa-spin" /> Translating...</> : <><i className="fa-solid fa-language" /> Auto Translate</>}
+            </button>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">{t('productDescription')} (ZH)</label>
