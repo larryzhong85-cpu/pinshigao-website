@@ -331,32 +331,19 @@ export default function AdminCategoriesPage() {
                   {cat.order}
                 </div>
 
-                {/* Image + names */}
-                <div className="col-span-6 md:col-span-6 flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 bg-gray-100 rounded overflow-hidden shrink-0 flex items-center justify-center">
-                    {cat.image ? (
-                      <img
-                        src={cat.image}
-                        alt={cat.nameEn}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                          (e.target as HTMLImageElement).parentElement!.innerHTML =
-                            '<i class="fa-solid fa-image text-gray-300"></i>';
-                        }}
-                      />
-                    ) : (
-                      <i className="fa-solid fa-image text-gray-300"></i>
-                    )}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-[#1a3a5c] truncate">
-                      {cat.nameZh}
-                    </p>
-                    <p className="text-xs text-gray-400 truncate">
-                      {cat.nameEn}
-                    </p>
-                  </div>
+                {/* Name ZH */}
+                <div className="col-span-2 text-sm text-[#1a3a5c] font-medium truncate">
+                  {cat.nameZh}
+                </div>
+
+                {/* Name EN */}
+                <div className="col-span-2 text-sm text-gray-500 truncate">
+                  {cat.nameEn}
+                </div>
+
+                {/* Name DE */}
+                <div className="col-span-2 text-sm text-gray-500 truncate">
+                  {cat.nameDe}
                 </div>
 
                 {/* Slug (desktop only) */}
