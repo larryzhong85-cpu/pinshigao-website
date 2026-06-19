@@ -152,7 +152,7 @@ export default function AdminProductsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">{t('manageProducts')}</h1>
-          <p className="text-sm text-gray-500 mt-1">Manage your product catalog</p>
+          <p className="text-sm text-gray-500 mt-1">{t('manageProductsDesc') || 'Manage your product catalog'}</p>
         </div>
         <Link
           href={`/${locale}/admin/products/new`}
@@ -160,7 +160,7 @@ export default function AdminProductsPage() {
             hover:bg-[#a8894e] transition-colors"
         >
           <i className="fa-solid fa-plus" />
-          New Product
+          {t('addProduct') || 'New Product'}
         </Link>
       </div>
 
@@ -264,7 +264,7 @@ export default function AdminProductsPage() {
                               product.published ? 'bg-emerald-500' : 'bg-gray-400'
                             }`}
                           />
-                          {product.published ? 'Published' : 'Draft'}
+                          {product.published ? t('published') : t('draft')}
                         </span>
                       </td>
 
@@ -276,14 +276,14 @@ export default function AdminProductsPage() {
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                           >
                             <i className="fa-solid fa-pen" />
-                            Edit
+                            {t('edit')}
                           </Link>
                           <button
                             onClick={() => setDeleteTarget(product)}
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
                           >
                             <i className="fa-solid fa-trash-can" />
-                            Delete
+                            {t('delete')}
                           </button>
                         </div>
                       </td>
