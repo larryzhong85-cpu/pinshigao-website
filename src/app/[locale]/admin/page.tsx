@@ -1,20 +1,61 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AdminLayout from '@/components/AdminLayout';
+
+interface DashboardStats {
+  products: number;
+  news: number;
+  categories: number;
+  inquiries: number;
+}
 
 export default function AdminDashboard() {
   const t = useTranslations('admin');
   const pathname = usePathname();
   const locale = pathname?.split('/')[1] || 'zh';
 
-  const stats = [
-    { label: t('statsProducts') ?? 'Products', value: '128', icon: 'fa-box', change: '+12', positive: true },
-    { label: t('statsNews') ?? 'News', value: '36', icon: 'fa-newspaper', change: '+4', positive: true },
-    { label: t('statsOrders') ?? 'Orders', value: '847', icon: 'fa-shopping-cart', change: '+23', positive: true },
-    { label: t('statsInquiries') ?? 'Inquiries', value: '52', icon: 'fa-envelope', change: '-3', positive: false },
+  const [stats, setStats] = useState<DashboardStats>({ products: 0, news: 0, categories: 0, inquiries: 0 });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadStats() {
+      try {
+        const [prodRes, newsRes, catRes, inqRes] = await Promise.all([
+          fetch('/api/products?pageSize=1'),
+          fetch('/api/news?limit=1'),
+          fetch('/api/categories'),
+          fetch('/api/inquiries', { credentials: 'include' }),
+        ]);
+
+        const prodData = await prodRes.json();
+        const newsData = await newsRes.json();
+        const catData = await catRes.json();
+        const inqData = await inqRes.json().catch(() => ({ items: [] }));
+
+        setStats({
+          products: prodData?.pagination?.total ?? (Array.isArray(prodData) ? prodData.length : 0),
+          news: newsData?.pagination?.total ?? (Array.isArray(newsData) ? newsData.length : 0),
+          categories: Array.isArray(catData) ? catData.length : 0,
+          inquiries: inqData?.items?.length ?? (Array.isArray(inqData) ? inqData.length : 0),
+        });
+      } catch {
+        // silent
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadStats();
+  }, []);
+
+  const statCards = [
+    { label: t('statsProductLabel') ?? 'Products', value: String(stats.products), icon: 'fa-box' },
+    { label: t('statsNewsLabel') ?? 'News', value: String(stats.news), icon: 'fa-newspaper' },
+    { label: t('manageCategories') ?? 'Categories', value: String(stats.categories), icon: 'fa-tags' },
+    { label: t('manageInquiries') ?? 'Inquiries', value: String(stats.inquiries), icon: 'fa-envelope' },
   ];
 
   const quickActions = [
@@ -24,16 +65,6 @@ export default function AdminDashboard() {
     { label: t('managePages') ?? 'Manage Pages', href: `/${locale}/admin/pages`, icon: 'fa-file-alt' },
     { label: t('siteSettings') ?? 'Site Settings', href: `/${locale}/admin/settings`, icon: 'fa-cog' },
     { label: t('viewSite') ?? 'View Site', href: `/${locale}`, icon: 'fa-external-link-alt' },
-  ];
-
-  const activities = [
-    { action: t('activityUpdated') ?? 'Updated', target: 'HD-300 Hinge Series', time: t('minutesAgo') ?? '5 min ago', user: 'Admin' },
-    { action: t('activityCreated') ?? 'Created', target: 'Spring Sale 2026', time: t('hourAgo') ?? '1 hour ago', user: 'Admin' },
-    { action: t('activityUploaded') ?? 'Uploaded', target: 'Product Images (12)', time: t('hoursAgo') ?? '3 hours ago', user: 'Editor' },
-    { action: t('activityPublished') ?? 'Published', target: 'New Arrivals Page', time: t('yesterday') ?? 'Yesterday', user: 'Admin' },
-    { action: t('activityDeleted') ?? 'Deleted', target: 'Draft: Old Catalog', time: t('yesterday') ?? 'Yesterday', user: 'Admin' },
-    { action: t('activityUpdated') ?? 'Updated', target: 'Contact Information', time: t('daysAgo') ?? '2 days ago', user: 'Editor' },
-    { action: t('activityCreated') ?? 'Created', target: 'Category: Drawer Systems', time: t('daysAgo') ?? '3 days ago', user: 'Admin' },
   ];
 
   return (
@@ -50,27 +81,29 @@ export default function AdminDashboard() {
 
       {/* Quick Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-        {stats.map((stat, i) => (
-          <div
-            key={i}
-            className="bg-white border border-gray-200 p-5 flex items-start gap-4 hover:shadow-sm transition-shadow"
-          >
-            <div className="w-10 h-10 bg-[#1a3a5c]/5 flex items-center justify-center shrink-0">
-              <i className={`fa-solid ${stat.icon} text-[#c8a96e] text-lg`}></i>
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs text-gray-500 uppercase tracking-wider mb-0.5">{stat.label}</p>
-              <p className="text-2xl font-bold text-[#1a3a5c]">{stat.value}</p>
-              <span
-                className={`text-xs font-medium ${
-                  stat.positive ? 'text-green-600' : 'text-red-500'
-                }`}
-              >
-                {stat.change} from last month
-              </span>
-            </div>
-          </div>
-        ))}
+        {loading
+          ? statCards.map((stat, i) => (
+              <div key={i} className="bg-white border border-gray-200 p-5 flex items-start gap-4">
+                <div className="w-10 h-10 bg-[#1a3a5c]/5 flex items-center justify-center shrink-0">
+                  <i className={`fa-solid ${stat.icon} text-[#c8a96e] text-lg`}></i>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-gray-500 uppercase tracking-wider mb-0.5">{stat.label}</p>
+                  <div className="w-16 h-6 bg-gray-100 animate-pulse rounded" />
+                </div>
+              </div>
+            ))
+          : statCards.map((stat, i) => (
+              <div key={i} className="bg-white border border-gray-200 p-5 flex items-start gap-4 hover:shadow-sm transition-shadow">
+                <div className="w-10 h-10 bg-[#1a3a5c]/5 flex items-center justify-center shrink-0">
+                  <i className={`fa-solid ${stat.icon} text-[#c8a96e] text-lg`}></i>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-gray-500 uppercase tracking-wider mb-0.5">{stat.label}</p>
+                  <p className="text-2xl font-bold text-[#1a3a5c]">{stat.value}</p>
+                </div>
+              </div>
+            ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -101,44 +134,15 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Recent Activity */}
+        {/* Recent Activity - placeholder */}
         <div>
           <h2 className="text-lg font-semibold text-[#1a3a5c] mb-4">
             {t('recentActivity') ?? 'Recent Activity'}
           </h2>
           <div className="border border-gray-200 bg-white divide-y divide-gray-100">
-            {activities.length === 0 ? (
-              <p className="p-4 text-sm text-gray-400">
-                {t('noActivity') ?? 'No recent activity.'}
-              </p>
-            ) : (
-              activities.map((item, i) => (
-                <div key={i} className="flex items-start gap-3 p-3.5 hover:bg-gray-50 transition-colors">
-                  <div
-                    className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${
-                      item.action.includes('Created')
-                        ? 'bg-green-500'
-                        : item.action.includes('Deleted')
-                          ? 'bg-red-400'
-                          : item.action.includes('Uploaded')
-                            ? 'bg-blue-500'
-                            : item.action.includes('Published')
-                              ? 'bg-[#c8a96e]'
-                              : 'bg-gray-400'
-                    }`}
-                  ></div>
-                  <div className="min-w-0">
-                    <p className="text-sm text-gray-800">
-                      <span className="font-medium text-[#1a3a5c]">{item.action}</span>{' '}
-                      {item.target}
-                    </p>
-                    <p className="text-xs text-gray-400 mt-0.5">
-                      {item.user} &middot; {item.time}
-                    </p>
-                  </div>
-                </div>
-              ))
-            )}
+            <p className="p-4 text-sm text-gray-400">
+              {t('noActivity') ?? 'No recent activity.'}
+            </p>
           </div>
         </div>
       </div>
